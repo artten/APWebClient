@@ -6,8 +6,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  // Declare a new state variable, which we'll call "count"
-  const [count, setCount] = useState(0);
 
   return (
     <div>
