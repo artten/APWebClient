@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
   return (
-    <div className="Login">
+    <div style={{ textAlign: "center" }} className="Login">
       <p>Login</p>
       <button
         onClick={() => {
