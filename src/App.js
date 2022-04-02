@@ -8,21 +8,30 @@ import Header from "./Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
+  const [users, setUsers] = useState([
+    { artiom: ["artiom1", "art"] },
+    { saar: ["saar2", "saar123"] },
+  ]);
+
   return (
     <div>
       <div
         style={{
           textAlign: "center",
           backgroundColor: "#6CDE27",
-          height: "100vh",
+          height: "96vh",
         }}
       >
         <Router>
           <Header></Header>
           <Routes>
-            <Route exact path="/" element={<Login />} />
+            <Route exact path="/" element={<Login users={users} />} />
             <Route exact path="/chat" element={<ChatApp />} />
-            <Route exact path="/register" element={<Register />} />
+            <Route
+              exact
+              path="/register"
+              element={<Register users={users} setUsers={setUsers} />}
+            />
           </Routes>
         </Router>
       </div>
