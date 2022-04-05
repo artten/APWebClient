@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Register(props) {
   const navigate = useNavigate();
@@ -9,17 +9,20 @@ function Register(props) {
   var [password, setPassword] = useState("");
   var [nickname, setNickname] = useState("");
 
+  useEffect(() => {}, [props.loginUser], [props.users]);
+
   function checkIfUserExist() {
     var temp = props.users;
     var i = 0;
     while (i < temp.length) {
-      if (temp[i].userName == userName) {
+      if (temp[i].userName === userName) {
         return;
       }
       i++;
     }
+    props.setLoginUser({ loginUser: userName });
     addUser();
-    navigate("/");
+    navigate("/chat");
   }
 
   function addUser() {

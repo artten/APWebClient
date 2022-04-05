@@ -13,6 +13,8 @@ function App() {
     { userName: "sasr", password: "sar123", nikename: "ssaa " },
   ]);
 
+  var [loginUser, setLoginUser] = useState({ LoginUser: "" });
+
   return (
     <div>
       <div
@@ -26,11 +28,24 @@ function App() {
           <Header></Header>
           <Routes>
             <Route exact path="/" element={<Login users={users} />} />
-            <Route exact path="/chat" element={<ChatApp />} />
+            <Route
+              exact
+              path="/chat"
+              element={
+                <ChatApp loginUser={loginUser} setLoginUser={setLoginUser} />
+              }
+            />
             <Route
               exact
               path="/register"
-              element={<Register users={users} setUsers={setUsers} />}
+              element={
+                <Register
+                  users={users}
+                  setUsers={setUsers}
+                  loginUser={loginUser}
+                  setLoginUser={setLoginUser}
+                />
+              }
             />
           </Routes>
         </Router>
