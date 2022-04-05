@@ -13,9 +13,13 @@ function Register(props) {
     var temp = props.users;
     var i = 0;
     while (i < temp.length) {
-      console.log(temp[i]);
+      if (temp[i].userName == userName) {
+        return;
+      }
       i++;
     }
+    addUser();
+    navigate("/");
   }
 
   function addUser() {
@@ -62,13 +66,6 @@ function Register(props) {
           />
         </div>
         <br />
-        {/* <button
-          type="submit"
-          className="btn btn-primary btn-block"
-          onClick={checkIfUserExist()}
-        >
-          Sign Up
-        </button> */}
         <Button variant="primary" onClick={checkIfUserExist}>
           Sign Up
         </Button>

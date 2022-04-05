@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [users, setUsers] = useState([
-    { username: "artiom", password: "art1", nikename: "art " },
-    { username: "sasr", password: "sar123", nikename: "ssaa " },
+    { userName: "artiom", password: "art1", nikename: "art " },
+    { userName: "sasr", password: "sar123", nikename: "ssaa " },
   ]);
 
   return (

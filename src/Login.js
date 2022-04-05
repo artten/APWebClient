@@ -27,7 +27,7 @@ function Login(props) {
       <button
         style={{ color: "pink" }}
         onClick={() => {
-          navigate("/reg");
+          navigate("/regiseter");
         }}
       >
         Click
