@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 function Register(props) {
   const navigate = useNavigate();
@@ -9,13 +9,16 @@ function Register(props) {
   var [password, setPassword] = useState("");
   var [nickname, setNickname] = useState("");
   var [modal, setModal] = useState({
-    text: "",
+    text: "aaa",
     visability: false,
   });
 
-  useEffect(() => {}, [props.loginUser], [props.users]);
+  useEffect(() => {}, [props.loginUser], [props.users], [modal.text]);
+
+  checkIfUserExist = checkIfUserExist.bind(this);
 
   function checkIfUserExist() {
+    modal.visability = false;
     var temp = props.users;
     var i = 0;
     while (i < temp.length) {
@@ -25,38 +28,63 @@ function Register(props) {
       i++;
     }
 
-    if (userName.length > 2 && nickname.length > 2) {
-      var re = new RegExp("^([a-z0-9A-Z]{5,})$");
-      if (re.test(password)) {
-        props.setLoginUser({ loginUser: userName });
-        addUser();
-        navigate("/chat");
+    if (userName.length > 2) {
+      if (nickname.length > 2) {
+        var re = new RegExp("^([a-z0-9A-Z]{5,})$");
+        if (re.test(password)) {
+          props.setLoginUser({ loginUser: userName });
+          addUser();
+          navigate("/chat");
+        } else {
+          modal.text = modal.text = setModal({
+            visability: true,
+            text:
+              "password shold be at least 9 characters and include:" +
+              "1) at least one lower letter\n2) at least one upper letter\n3) at least one number",
+          });
+        }
+      } else {
+        modal.text = setModal({
+          visability: true,
+          text: "Nikname should be at least 3 letters",
+        });
       }
+    } else {
+      setModal({
+        visability: true,
+        text: "Username should be at least 3 letters",
+      });
     }
   }
 
   function addUser() {
     var temp = { userName: userName, nickname: nickname, password: password };
     props.setUsers([...props.users, temp]);
-    console.log(props.users);
   }
 
-  console.log(modal.visability);
+  function closeModal() {
+    setModal({
+      visability: false,
+      text: "",
+    });
+  }
+
   return (
     <div className="Register">
       <Modal show={modal.visability}>
         <Modal.Dialog>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal title</Modal.Title>
+          <Modal.Header>
+            <Modal.Title>Somthing went wrong</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <p>Modal body text goes here.</p>
+            <p>{modal.text}</p>
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary">Close</Button>
-            <Button variant="primary">Save changes</Button>
+            <Button class="btn btn-primary" onClick={closeModal}>
+              Close
+            </Button>
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>
