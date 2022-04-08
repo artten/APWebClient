@@ -13,20 +13,22 @@ function Login(props) {
     while (i < temp.length) {
       if (temp[i].userName === logUserName) {
         if (temp[i].password === LogPassword){
-          navigate("/ChatApp");
+          navigate("/chat");
           return;
         }
         else {
-          document.write("wrong");
+          //document.getElementById("errorText").style.display = "block"
+          document.getElementById("errorText").innerHTML = "wrong password"
+          return;
         }
       }
       i++;
     }
-    document.write("no");
+    document.getElementById("errorText").innerHTML = "User does not exist"
   }
 
   return (
-    <div style={{ textAlign: "center" }} className="Login">
+    <div style={{ textAlign: "center" }} className="Login" id="Login">
       <p>Login </p>
       <h1 style={{ color: "pink" }}>
         User name:{" "}
@@ -60,7 +62,7 @@ function Login(props) {
       <button
         style={{ color: "pink" }}
         onClick={() => {
-          navigate("/regiseter");
+          navigate("/register");
         }}
       >
         No account? Register now!
@@ -71,6 +73,7 @@ function Login(props) {
       >
         Forgot password? TOO BAD
       </button>
+      <div class="errorText" id="errorText" style={{ color: "red" }}></div>
     </div>
   );
 }
