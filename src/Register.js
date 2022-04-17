@@ -23,6 +23,10 @@ function Register(props) {
     var i = 0;
     while (i < temp.length) {
       if (temp[i].userName === userName) {
+        modal.text = setModal({
+          visability: true,
+          text: "User name is taken please try another one",
+        });
         return;
       }
       i++;
@@ -30,7 +34,7 @@ function Register(props) {
 
     if (userName.length > 2) {
       if (nickname.length > 2) {
-        var re = new RegExp("^([a-z0-9A-Z]{5,})$");
+        var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{9,})");
         if (re.test(password)) {
           props.setLoginUser({ loginUser: userName });
           addUser();
@@ -38,9 +42,14 @@ function Register(props) {
         } else {
           modal.text = modal.text = setModal({
             visability: true,
-            text:
-              "password shold be at least 9 characters and include:" +
-              "1) at least one lower letter\n2) at least one upper letter\n3) at least one number",
+            text: (
+              <div>
+                <p>password shold be at least 9 characters and include:</p>
+                <p>1) at least one lower letter</p>
+                <p>2) at least one upper letter</p>
+                <p>3) at least one number</p>
+              </div>
+            ),
           });
         }
       } else {
