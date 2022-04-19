@@ -1,7 +1,7 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 function Register(props) {
   const navigate = useNavigate();
@@ -13,8 +13,6 @@ function Register(props) {
     text: "",
     visability: false,
   });
-
-  useEffect(() => {}, [props.loginUser], [props.users], [modal.text], [image]);
 
   checkIfUserExist = checkIfUserExist.bind(this);
 
@@ -156,13 +154,14 @@ function Register(props) {
           <br />
           <input
             type="file"
-            className="form-control-sm"
             accept="image/*"
             onChange={(e) => {
               setImage(URL.createObjectURL(e.target.files[0]));
             }}
+            style={{ color: "red", padding: "1em" }}
           />
         </div>
+
         <br />
         <Button variant="primary" onClick={checkIfUserExist}>
           Sign Up
