@@ -11,6 +11,7 @@ function App() {
   const [users, setUsers] = useState([
     { userName: "artiom", password: "art1", nikename: "art " },
     { userName: "sasr", password: "sar123", nikename: "ssaa " },
+    { userName: "ilona", password: "ilo19", nikename: "anoli "},
   ]);
 
   var [loginUser, setLoginUser] = useState({ LoginUser: "" });

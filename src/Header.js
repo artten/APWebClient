@@ -5,7 +5,7 @@ function Header() {
   const navigate = useNavigate();
   return (
     <div className="Header">
-      <h2 style={{ textAlign: "center", backgroundColor: "#02F173" }}>
+      <h2>
         ChatApp
       </h2>
     </div>

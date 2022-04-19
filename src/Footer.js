@@ -3,8 +3,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 function Footer() {
   return (
-    <div>
-      <h2 style={{ textAlign: "center", backgroundColor: "#02F173" }}>
+    <div className="Footer">
+      <h2>
         This Chat App is made by Artiom and Saar
       </h2>
     </div>
