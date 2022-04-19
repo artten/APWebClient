@@ -8,12 +8,13 @@ function Register(props) {
   var [userName, setUserName] = useState("");
   var [password, setPassword] = useState("");
   var [nickname, setNickname] = useState("");
+  var [image, setImage] = useState("");
   var [modal, setModal] = useState({
-    text: "aaa",
+    text: "",
     visability: false,
   });
 
-  useEffect(() => {}, [props.loginUser], [props.users], [modal.text]);
+  useEffect(() => {}, [props.loginUser], [props.users], [modal.text], [image]);
 
   checkIfUserExist = checkIfUserExist.bind(this);
 
@@ -31,47 +32,65 @@ function Register(props) {
       }
       i++;
     }
-
-    if (userName.length > 2) {
-      if (nickname.length > 2) {
-        var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{9,})");
-        if (re.test(password)) {
-          props.setLoginUser({ loginUser: userName });
-          addUser();
-          navigate("/chat");
+    if (image != "") {
+      if (userName.length > 2) {
+        if (nickname.length > 2) {
+          var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{9,})");
+          if (re.test(password)) {
+            props.setLoginUser({ loginUser: userName });
+            addUser();
+            navigate("/chat");
+          } else {
+            modal.text = modal.text = setModal({
+              visability: true,
+              text: (
+                <div>
+                  <p>password shold be at least 9 characters and include:</p>
+                  <p>1) at least one lower letter</p>
+                  <p>2) at least one upper letter</p>
+                  <p>3) at least one number</p>
+                </div>
+              ),
+            });
+          }
         } else {
-          modal.text = modal.text = setModal({
+          modal.text = setModal({
             visability: true,
-            text: (
-              <div>
-                <p>password shold be at least 9 characters and include:</p>
-                <p>1) at least one lower letter</p>
-                <p>2) at least one upper letter</p>
-                <p>3) at least one number</p>
-              </div>
-            ),
+            text: "Nikname should be at least 3 letters",
           });
         }
       } else {
-        modal.text = setModal({
+        setModal({
           visability: true,
-          text: "Nikname should be at least 3 letters",
+          text: "Username should be at least 3 letters",
         });
       }
     } else {
       setModal({
         visability: true,
-        text: "Username should be at least 3 letters",
+        text: "Not an image",
       });
     }
   }
 
   function addUser() {
-    var temp = { userName: userName, nickname: nickname, password: password };
+    var temp = {
+      userName: userName,
+      nickname: nickname,
+      password: password,
+      image: image,
+    };
     props.setUsers([...props.users, temp]);
   }
 
   function closeModal() {
+    setModal({
+      visability: false,
+      text: "",
+    });
+  }
+
+  function closeModal(e) {
     setModal({
       visability: false,
       text: "",
@@ -130,6 +149,18 @@ function Register(props) {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Image</label>
+          <br />
+          <input
+            type="file"
+            className="form-control-sm"
+            accept="image/*"
+            onChange={(e) => {
+              setImage(URL.createObjectURL(e.target.files[0]));
+            }}
           />
         </div>
         <br />
