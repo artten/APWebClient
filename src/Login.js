@@ -27,6 +27,11 @@ function Login(props) {
     document.getElementById("errorText").innerHTML = "User does not exist"
   }
 
+  function loadImg() {
+    document.getElementById("errorText").innerHTML = "<img width=\"300\" height=\"261\" align=\"right\" src=\"https://i.pinimg.com/originals/f7/a4/bd/f7a4bd3aca721ca3d84ac8218fd1f697.jpg\"></img>"
+    return;
+  }
+
   return (
     <div style={{ textAlign: "center" }} className="Login" id="Login">
       <p>Login </p>
@@ -45,7 +50,7 @@ function Login(props) {
         Password:{" "}
         <input
           style={{ backgroundColor: "pink" }}
-          type="text"
+          type="password"
           id="password"
           placeholder="Enter password"
           value={LogPassword}
@@ -67,15 +72,16 @@ function Login(props) {
       >
         No account? Register now!
       </button>
-
+        
       <button
         style={{ color: "pink" }}
+        onClick={loadImg}
       >
         Forgot password? TOO BAD
       </button>
+      <div class="butwhydou" id="butwhydou" style={{ color: "red" }}></div>
       <div class="errorText" id="errorText" style={{ color: "red" }}></div>
     </div>
   );
 }
-
 export default Login;
