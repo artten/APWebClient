@@ -3,7 +3,7 @@ import "./App.css";
 import logo from "./logo.png";
 
 function ChatApp(props) {
-  console.log(props.loginUser);
+  console.log(props.users);
   return (
     <body>
       <div class="container">

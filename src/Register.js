@@ -167,9 +167,11 @@ function Register(props) {
         <Button variant="primary" onClick={checkIfUserExist}>
           Sign Up
         </Button>
-        <p className="forgot-password text-right">
-          Already registered <a href="/">sign in?</a>
-        </p>
+        <br></br>
+        <br></br>
+        <Button variant="primary" onClick={() => navigate("/")}>
+          Sign In
+        </Button>
       </form>
     </div>
   );
