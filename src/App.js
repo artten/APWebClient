@@ -49,6 +49,7 @@ function App() {
   var [recipients, setRecipients] = useState([
     {
       userName: "artiom",
+<<<<<<< HEAD
       recipientsList: ["sasr"],
     },
     {
@@ -66,17 +67,27 @@ function App() {
     {
       userName: "monsoon",
       recipientsList: ["sasr","art1","ilona","Bogos Binted"],
+=======
+      recipientsList: ["art1", "sasr", "ilona"],
+>>>>>>> f3ee30f6ab3ce2997fe72ca4c06dd75ba148e4ea
     },
   ]);
 
   var [chats, setChats] = useState([
     {
-      recipients: ["artiom","sasr"],
-      texts: [{"art1":"bee"},{"sasr":"ok"},{"art1":"jazz"}],
+      recipients: ["artiom", "sasr"],
+      texts: [
+        { name: "art1", type: "text", message: "hi" },
+        { name: "sasr", type: "text", message: "lol" },
+        { name: "art1", type: "text", message: "hi2" },
+      ],
     },
     {
-      recipients: ["ilona","sasr"],
-      texts: [{"ilona":"Images/logo.png"},{"sasr":"logo"},],
+      recipients: ["ilona", "sasr"],
+      texts: [
+        { name: "art1", type: "image", message: "./images/logo.png" },
+        { name: "art1", type: "text", message: "hi" },
+      ],
     },
     {
       recipients: ["monsoon","sasr"],
