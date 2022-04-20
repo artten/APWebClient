@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import './App.css';
-import logo from './images/logo.png';
 
 function ChatApp(props) {
-  console.log(props.users);
+  console.log(props.loginUser);
   return (
     <body>
       <div class="container">
