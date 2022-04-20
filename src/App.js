@@ -14,25 +14,58 @@ function App() {
       password: "art1",
       nikename: "art ",
       image: "Images/logo.png",
+      recipientsList: ["sasr"],
     },
     {
       userName: "sasr",
       password: "sar123",
       nikename: "ssaa ",
       image: "Images/logo.png",
+      recipientsList: ["art1","ilona"],
     },
     {
       userName: "ilona",
       password: "ilo19",
       nikename: "anoli ",
       image: "Images/logo.png",
+      recipientsList: ["sasr"],
+    },
+    {
+      userName: "Bogos Binted",
+      password: "sss",
+      nikename: "Bogos",
+      image: "Images/logo.png",
+      recipientsList: ["Bogos Binted"],
+    },
+    {
+      userName: "monsoon",
+      password: "eee",
+      nikename: "monsoon",
+      image: "Images/logo.png",
+      recipientsList: ["sasr","art1","ilona","Bogos Binted"],
     },
   ]);
 
   var [recipients, setRecipients] = useState([
     {
       userName: "artiom",
-      recipientsList: ["art1","sasr","ilona"],
+      recipientsList: ["sasr"],
+    },
+    {
+      userName: "sasr",
+      recipientsList: ["art1","ilona"],
+    },
+    {
+      userName: "ilona",
+      recipientsList: ["sasr"],
+    },
+    {
+      userName: "Bogos Binted",
+      recipientsList: ["Bogos Binted"],
+    },
+    {
+      userName: "monsoon",
+      recipientsList: ["sasr","art1","ilona","Bogos Binted"],
     },
   ]);
 
@@ -44,6 +77,22 @@ function App() {
     {
       recipients: ["ilona","sasr"],
       texts: [{"ilona":"Images/logo.png"},{"sasr":"logo"},],
+    },
+    {
+      recipients: ["monsoon","sasr"],
+      texts: [{"monsoon":"AMUGUS"},{"sasr":"logo"},],
+    },
+    {
+      recipients: ["monsoon","ilona"],
+      texts: [{"monsoon":"AMUGUS"},{"ilona":"logo"},],
+    },
+    {
+      recipients: ["monsoon","art1"],
+      texts: [{"monsoon":"AMUGUS"},{"art1":"logo"},],
+    },
+    {
+      recipients: ["monsoon","Bogos Binted"],
+      texts: [{"monsoon":"And it will come"},{"monsoon":"like a flood of pain"},{"monsoon":"pouring down on me"}],
     },
   ]);
 
