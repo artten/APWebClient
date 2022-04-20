@@ -9,12 +9,27 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   const [users, setUsers] = useState([
-    { userName: "artiom", password: "art1", nikename: "art " },
-    { userName: "sasr", password: "sar123", nikename: "ssaa " },
-    { userName: "ilona", password: "ilo19", nikename: "anoli "},
+    {
+      userName: "artiom",
+      password: "art1",
+      nikename: "art ",
+      image: "Images/logo.png",
+    },
+    {
+      userName: "sasr",
+      password: "sar123",
+      nikename: "ssaa ",
+      image: "Images/logo.png",
+    },
+    {
+      userName: "ilona",
+      password: "ilo19",
+      nikename: "anoli ",
+      image: "Images/logo.png",
+    },
   ]);
 
-  var [loginUser, setLoginUser] = useState({ LoginUser: "" });
+  var [loginUser, setLoginUser] = useState({ loginUser: "" });
 
   return (
     <div>
@@ -33,7 +48,11 @@ function App() {
               exact
               path="/chat"
               element={
-                <ChatApp loginUser={loginUser} setLoginUser={setLoginUser} />
+                <ChatApp
+                  loginUser={loginUser}
+                  setLoginUser={setLoginUser}
+                  users={users}
+                />
               }
             />
             <Route

@@ -12,23 +12,23 @@ function Login(props) {
     var i = 0;
     while (i < temp.length) {
       if (temp[i].userName === logUserName) {
-        if (temp[i].password === LogPassword){
+        if (temp[i].password === LogPassword) {
           navigate("/chat");
           return;
-        }
-        else {
+        } else {
           //document.getElementById("errorText").style.display = "block"
-          document.getElementById("errorText").innerHTML = "wrong password"
+          document.getElementById("errorText").innerHTML = "wrong password";
           return;
         }
       }
       i++;
     }
-    document.getElementById("errorText").innerHTML = "User does not exist"
+    document.getElementById("errorText").innerHTML = "User does not exist";
   }
 
   function loadImg() {
-    document.getElementById("errorText").innerHTML = "<img width=\"300\" height=\"261\" align=\"right\" src=\"https://i.pinimg.com/originals/f7/a4/bd/f7a4bd3aca721ca3d84ac8218fd1f697.jpg\"></img>"
+    document.getElementById("errorText").innerHTML =
+      '<img width="300" height="261" align="right" src="https://i.pinimg.com/originals/f7/a4/bd/f7a4bd3aca721ca3d84ac8218fd1f697.jpg"></img>';
     return;
   }
 
@@ -57,10 +57,7 @@ function Login(props) {
           onChange={(e) => setPassword(e.target.value)}
         ></input>
       </h1>
-      <button
-        style={{ color: "pink" }}
-        onClick={checkLoginInfo}
-      >
+      <button style={{ color: "pink" }} onClick={checkLoginInfo}>
         Login
       </button>
 
@@ -72,11 +69,8 @@ function Login(props) {
       >
         No account? Register now!
       </button>
-        
-      <button
-        style={{ color: "pink" }}
-        onClick={loadImg}
-      >
+
+      <button style={{ color: "pink" }} onClick={loadImg}>
         Forgot password? TOO BAD
       </button>
       <div class="butwhydou" id="butwhydou" style={{ color: "red" }}></div>
