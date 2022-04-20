@@ -50,7 +50,12 @@
 {
   position: relative;
   flex: 70%;
+  display: flex;
   background-color: beige;
+}
+#input_text
+{
+  align-self: flex-end;
 }
 .addchat
 {
