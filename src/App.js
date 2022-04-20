@@ -29,6 +29,24 @@ function App() {
     },
   ]);
 
+  var [recipients, setRecipients] = useState([
+    {
+      userName: "artiom",
+      recipientsList: ["art1","sasr","ilona"],
+    },
+  ]);
+
+  var [chats, setChats] = useState([
+    {
+      recipients: ["artiom","sasr"],
+      texts: [{"art1":"bee"},{"sasr":"ok"},{"art1":"jazz"}],
+    },
+    {
+      recipients: ["ilona","sasr"],
+      texts: [{"ilona":"Images/logo.png"},{"sasr":"logo"},],
+    },
+  ]);
+
   var [loginUser, setLoginUser] = useState({ loginUser: "" });
 
   return (
