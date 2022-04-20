@@ -46,33 +46,6 @@ function App() {
     },
   ]);
 
-  var [recipients, setRecipients] = useState([
-    {
-      userName: "artiom",
-<<<<<<< HEAD
-      recipientsList: ["sasr"],
-    },
-    {
-      userName: "sasr",
-      recipientsList: ["art1","ilona"],
-    },
-    {
-      userName: "ilona",
-      recipientsList: ["sasr"],
-    },
-    {
-      userName: "Bogos Binted",
-      recipientsList: ["Bogos Binted"],
-    },
-    {
-      userName: "monsoon",
-      recipientsList: ["sasr","art1","ilona","Bogos Binted"],
-=======
-      recipientsList: ["art1", "sasr", "ilona"],
->>>>>>> f3ee30f6ab3ce2997fe72ca4c06dd75ba148e4ea
-    },
-  ]);
-
   var [chats, setChats] = useState([
     {
       recipients: ["artiom", "sasr"],
@@ -91,20 +64,33 @@ function App() {
     },
     {
       recipients: ["monsoon","sasr"],
-      texts: [{"monsoon":"AMUGUS"},{"sasr":"logo"},],
+      texts: [
+        { name: "monsoon", type: "text", message: "AMUGUS" },
+        { name: "sasr", type: "text", message: "logo" },
+      ],
     },
     {
       recipients: ["monsoon","ilona"],
-      texts: [{"monsoon":"AMUGUS"},{"ilona":"logo"},],
+      texts: [
+        { name: "monsoon", type: "text", message: "AMUGUS" },
+        { name: "ilona", type: "text", message: "logo" },
+      ],
     },
     {
       recipients: ["monsoon","art1"],
-      texts: [{"monsoon":"AMUGUS"},{"art1":"logo"},],
+      texts: [
+        { name: "monsoon", type: "text", message: "AMUGUS" },
+        { name: "art1", type: "text", message: "logo" },
+      ],
     },
     {
       recipients: ["monsoon","Bogos Binted"],
-      texts: [{"monsoon":"And it will come"},{"monsoon":"like a flood of pain"},{"monsoon":"pouring down on me"}],
-    },
+      texts: [
+          { name: "monsoon", type: "text", message: "And it will come" },
+          { name: "monsoon", type: "text", message: "like a flood of pain" },
+          { name: "monsoon", type: "text", message: "pouring down on me" },
+        ],
+      },
   ]);
 
   var [loginUser, setLoginUser] = useState({ loginUser: "" });
