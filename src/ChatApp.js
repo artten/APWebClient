@@ -4,76 +4,62 @@ import React, { useState } from "react";
 import "./App.css";
 
 function ChatApp(props) {
-  var [addUsername, setUserName] = useState("");
-  var [modal, setModal] = useState({
-    text: "",
-    visability: false,
-  });
+  var [newContact, setNewContace] = useState("");
+  var [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
   console.log(props.loginUser);
-
-  function addRecipient(){
-    modal.text = setModal({
-      visability: true,
-      text: (<div>
-        <label>Add new contact</label>
-        <br/>
-        <input
-        type="text"
-        className="form-control-sm"
-        placeholder="User Name"
-        value={addUsername}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-        <button onClick={addChatTolist}>Add</button>
-      </div>),
-    });
-  }
 
   function addChatTolist(){
 
   }
 
-  function closeModal() {
-    setModal({
-      visability: false,
-      text: "",
-    });
+  function isUserValid(){
+    var temp = props.users;
+    var i = 0;
+    while (i < temp.length) {
+      if (temp[i].userName === newContact){
+
+      }
+      else {
+        
+      }
+    }
   }
 
-  function closeModal(e) {
-    setModal({
-      visability: false,
-      text: "",
-    });
-  }
-  
   const [newText, setNewText] = useState("")
 
   function addText() {
-          props.chats[
-            props.users.findIndex(
-              (user) => user.userName == props.loginUser.loginUser
-            )
-          ]
+   
   }
 
   return (
     <body>
     <div className="chatApp">
-    <Modal show={modal.visability}>
+    <Modal show={show} onHide={handleClose}>
     <Modal.Dialog>
       <Modal.Body>
-        <p>{modal.text}</p>
+      <div class="form-group">
+        <label>Add new contact</label>
+        <br/>
+        <input
+          type="text"
+          className="form-control-sm"
+          placeholder="User Name"
+          value={addUsername}
+          onChange={(e) => setNewContace(e.target.value)}>
+        </input>
+        <button onClick={addChatTolist}>Add</button>
+      </div>
       </Modal.Body>
-
       <Modal.Footer>
-        <Button class="btn btn-primary" onClick={closeModal}>
+        <Button class="btn btn-primary" onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
     </Modal.Dialog>
-  </Modal>
+    </Modal>
       <div className="container">
         <div className="leftSide">
           <div className="head">
@@ -86,12 +72,12 @@ function ChatApp(props) {
                 )
               ].image
             }
-            class="cover"
-          ></img>
+            class="cover"></img>
             </div>
             <div className="nickname" id="nikname">
+            <h4>{props.loginUser.loginUser}</h4>
             </div>
-            <button className="addchat" variant="primary" onClick={addRecipient}>
+            <button className="addchat" variant="primary" onClick={handleShow}>
             </button>
           </div>
         </div>
@@ -111,7 +97,7 @@ function ChatApp(props) {
           </div>
         </div>
       </div>
-    </div>
+      </div>
     </body>
   );
 }
