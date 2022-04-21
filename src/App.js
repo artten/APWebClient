@@ -54,7 +54,7 @@ function App() {
         {
           name: "sasr",
           type: "text",
-          message: "lossssssssssssssssssssssssssl",
+          message: "lol",
         },
         { name: "artiom", type: "text", message: "hi2" },
       ],

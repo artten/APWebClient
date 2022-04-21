@@ -9,6 +9,15 @@ function ChatApp(props) {
   const [newText, setNewText] = useState("");
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
+
+  useEffect(
+    () => {
+      console.log("changed");
+    },
+    [textsToDisplay],
+    [getTextsToDisplay]
+  );
+
   function pText() {
     var indents = [];
     for (var i = 0; i < textsToDisplay.length; i++) {
@@ -24,27 +33,47 @@ function ChatApp(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
-  console.log(props.loginUser);
 
-  function addChatTolist(){
+  function addChatTolist() {
     handleClose();
   }
-  function isUserValid(){
+  function isUserValid() {
     var temp = props.users;
     var i = 0;
     while (i < temp.length) {
-      if (temp[i].userName === newContact){
+      if (temp[i].userName === newContact) {
         addChatTolist();
         return;
       }
       i++;
     }
-    var error = document.getElementById("error")
-    error.textContent = "User does not exist"
-    error.style.color = "red"
+    var error = document.getElementById("error");
+    error.textContent = "User does not exist";
+    error.style.color = "red";
   }
 
   function addText() {
+    var temp = {
+      name: "artiom",
+      type: "text",
+      message: newText,
+    };
+    var tempChats = props.chats;
+    var index = props.chats.findIndex(
+      (chat) =>
+        chat.recipients[0] == "artiom" && //props.loginUser &&
+        chat.recipients[1] == "sasr"
+    );
+    var tempRecipients = props.chats[index].recipients;
+    var tempText = props.chats[index].texts;
+    tempText.push(temp);
+    tempChats[index] = { recipients: tempRecipients, texts: tempText };
+    props.setChats(tempChats);
+    getTextsToDisplay();
+    setNewText("");
+  }
+
+  function getTextsToDisplay() {
     setTextsToDisplay(
       props.chats[
         props.chats.findIndex(
@@ -58,50 +87,54 @@ function ChatApp(props) {
 
   return (
     <div className="chatApp">
-    <Modal show={show} onHide={handleClose}>
-    <Modal.Dialog>
-      <Modal.Body>
-      <div class="form-group">
-        <label>Add new contact</label>
-        <br/>
-        <input
-          type="text"
-          className="form-control-sm"
-          placeholder="User Name"
-          value={newContact}
-          onChange={(e) => setNewContace(e.target.value)}>
-        </input>
-        <button onClick={isUserValid}>Add</button>
-        <br/>
-        <div id="error"></div>
-      </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button class="btn btn-primary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
-    </Modal.Dialog>
-    </Modal>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Dialog>
+          <Modal.Body>
+            <div class="form-group">
+              <label>Add new contact</label>
+              <br />
+              <input
+                type="text"
+                className="form-control-sm"
+                placeholder="User Name"
+                value={newContact}
+                onChange={(e) => setNewContace(e.target.value)}
+              ></input>
+              <button onClick={isUserValid}>Add</button>
+              <br />
+              <div id="error"></div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button class="btn btn-primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal.Dialog>
+      </Modal>
       <div className="container">
         <div className="leftSide">
           <div className="head">
             <div className="userimg">
-            <img
-            src={
-              props.users[
-                props.users.findIndex(
-                  (user) => user.userName == props.loginUser.loginUser
-                )
-              ].image
-            }
-            class="cover"></img>
+              <img
+                src={
+                  props.users[
+                    props.users.findIndex(
+                      (user) => user.userName == props.loginUser.loginUser
+                    )
+                  ].image
+                }
+                class="cover"
+              ></img>
             </div>
             <div className="nickname" id="nikname">
-            <h4>{props.loginUser.loginUser}</h4>
+              <h4>{props.loginUser.loginUser}</h4>
             </div>
-            <button className="addchat" variant="primary" onClick={handleShow}>
-            </button>
+            <button
+              className="addchat"
+              variant="primary"
+              onClick={handleShow}
+            ></button>
           </div>
         </div>
         <div class="rightSide">
@@ -113,6 +146,8 @@ function ChatApp(props) {
                 class="form-control"
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
+                value={newText}
+                onChange={(e) => setNewText(e.target.value)}
               />
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button" onClick={addText}>
