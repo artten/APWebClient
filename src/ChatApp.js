@@ -12,7 +12,7 @@ function ChatApp(props) {
   console.log(props.loginUser);
 
   function addChatTolist(){
-
+    handleClose();
   }
 
   function isUserValid(){
@@ -20,12 +20,14 @@ function ChatApp(props) {
     var i = 0;
     while (i < temp.length) {
       if (temp[i].userName === newContact){
-
+        addChatTolist();
+        return;
       }
-      else {
-        
-      }
+      i++;
     }
+    var error = document.getElementById("error")
+    error.textContent = "User does not exist"
+    error.style.color = "red"
   }
 
   const [newText, setNewText] = useState("")
@@ -47,10 +49,12 @@ function ChatApp(props) {
           type="text"
           className="form-control-sm"
           placeholder="User Name"
-          value={addUsername}
+          value={newContact}
           onChange={(e) => setNewContace(e.target.value)}>
         </input>
-        <button onClick={addChatTolist}>Add</button>
+        <button onClick={isUserValid}>Add</button>
+        <br/>
+        <div id="error"></div>
       </div>
       </Modal.Body>
       <Modal.Footer>
