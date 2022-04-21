@@ -19,48 +19,29 @@ function ChatApp(props) {
     }
     return indents;
   }
-  var [addUsername, setUserName] = useState("");
-  var [modal, setModal] = useState({
-    text: "",
-    visability: false,
-  });
+  var [newContact, setNewContace] = useState("");
+  var [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
   console.log(props.loginUser);
 
-  function addRecipient() {
-    modal.text = setModal({
-      visability: true,
-      text: (
-        <div>
-          <label>Add new contact</label>
-          <br />
-          <input
-            type="text"
-            className="form-control-sm"
-            placeholder="User Name"
-            value={addUsername}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <button onClick={addChatTolist}>Add</button>
-        </div>
-      ),
-    });
+  function addChatTolist(){
+    handleClose();
   }
-
-  function addChatTolist() {}
-
-  function closeModal() {
-    setModal({
-      visability: false,
-      text: "",
-    });
-  }
-
-  function closeModal(e) {
-    setModal({
-      visability: false,
-      text: "",
-    });
+  function isUserValid(){
+    var temp = props.users;
+    var i = 0;
+    while (i < temp.length) {
+      if (temp[i].userName === newContact){
+        addChatTolist();
+        return;
+      }
+      i++;
+    }
+    var error = document.getElementById("error")
+    error.textContent = "User does not exist"
+    error.style.color = "red"
   }
 
   function addText() {
@@ -77,40 +58,50 @@ function ChatApp(props) {
 
   return (
     <div className="chatApp">
-      <Modal show={modal.visability}>
-        <Modal.Dialog>
-          <Modal.Body>
-            <p>{modal.text}</p>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button class="btn btn-primary" onClick={closeModal}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal.Dialog>
-      </Modal>
+    <Modal show={show} onHide={handleClose}>
+    <Modal.Dialog>
+      <Modal.Body>
+      <div class="form-group">
+        <label>Add new contact</label>
+        <br/>
+        <input
+          type="text"
+          className="form-control-sm"
+          placeholder="User Name"
+          value={newContact}
+          onChange={(e) => setNewContace(e.target.value)}>
+        </input>
+        <button onClick={isUserValid}>Add</button>
+        <br/>
+        <div id="error"></div>
+      </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button class="btn btn-primary" onClick={handleClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal.Dialog>
+    </Modal>
       <div className="container">
         <div className="leftSide">
           <div className="head">
             <div className="userimg">
-              <img
-                src={
-                  props.users[
-                    props.users.findIndex(
-                      (user) => user.userName == props.loginUser.loginUser
-                    )
-                  ].image
-                }
-                class="cover"
-              ></img>
+            <img
+            src={
+              props.users[
+                props.users.findIndex(
+                  (user) => user.userName == props.loginUser.loginUser
+                )
+              ].image
+            }
+            class="cover"></img>
             </div>
-            <div className="nickname" id="nikname"></div>
-            <button
-              className="addchat"
-              variant="primary"
-              onClick={addRecipient}
-            ></button>
+            <div className="nickname" id="nikname">
+            <h4>{props.loginUser.loginUser}</h4>
+            </div>
+            <button className="addchat" variant="primary" onClick={handleShow}>
+            </button>
           </div>
         </div>
         <div class="rightSide">
