@@ -21,7 +21,7 @@ function App() {
       password: "sar123",
       nikename: "ssaa ",
       image: "Images/logo.png",
-      recipientsList: ["art1","ilona"],
+      recipientsList: ["art1", "ilona"],
     },
     {
       userName: "ilona",
@@ -42,7 +42,7 @@ function App() {
       password: "eee",
       nikename: "monsoon",
       image: "Images/logo.png",
-      recipientsList: ["sasr","art1","ilona","Bogos Binted"],
+      recipientsList: ["sasr", "art1", "ilona", "Bogos Binted"],
     },
   ]);
 
@@ -50,47 +50,47 @@ function App() {
     {
       recipients: ["artiom", "sasr"],
       texts: [
-        { name: "art1", type: "text", message: "hi" },
+        { name: "artiom", type: "text", message: "hi" },
         { name: "sasr", type: "text", message: "lol" },
-        { name: "art1", type: "text", message: "hi2" },
+        { name: "artiom", type: "text", message: "hi2" },
       ],
     },
     {
       recipients: ["ilona", "sasr"],
       texts: [
-        { name: "art1", type: "image", message: "./images/logo.png" },
-        { name: "art1", type: "text", message: "hi" },
+        { name: "artiom", type: "image", message: "./images/logo.png" },
+        { name: "artiom", type: "text", message: "hi" },
       ],
     },
     {
-      recipients: ["monsoon","sasr"],
+      recipients: ["monsoon", "sasr"],
       texts: [
         { name: "monsoon", type: "text", message: "AMUGUS" },
         { name: "sasr", type: "text", message: "logo" },
       ],
     },
     {
-      recipients: ["monsoon","ilona"],
+      recipients: ["monsoon", "ilona"],
       texts: [
         { name: "monsoon", type: "text", message: "AMUGUS" },
         { name: "ilona", type: "text", message: "logo" },
       ],
     },
     {
-      recipients: ["monsoon","art1"],
+      recipients: ["monsoon", "art1"],
       texts: [
         { name: "monsoon", type: "text", message: "AMUGUS" },
-        { name: "art1", type: "text", message: "logo" },
+        { name: "artiom", type: "text", message: "logo" },
       ],
     },
     {
-      recipients: ["monsoon","Bogos Binted"],
+      recipients: ["monsoon", "Bogos Binted"],
       texts: [
-          { name: "monsoon", type: "text", message: "And it will come" },
-          { name: "monsoon", type: "text", message: "like a flood of pain" },
-          { name: "monsoon", type: "text", message: "pouring down on me" },
-        ],
-      },
+        { name: "monsoon", type: "text", message: "And it will come" },
+        { name: "monsoon", type: "text", message: "like a flood of pain" },
+        { name: "monsoon", type: "text", message: "pouring down on me" },
+      ],
+    },
   ]);
 
   var [loginUser, setLoginUser] = useState({ loginUser: "" });
@@ -117,7 +117,7 @@ function App() {
                   setLoginUser={setLoginUser}
                   users={users}
                   chats={chats}
-                  sestChats={setChats}
+                  setChats={setChats}
                 />
               }
             />
