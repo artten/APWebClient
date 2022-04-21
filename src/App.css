@@ -48,14 +48,33 @@
 }
 .container .rightSide
 {
-  position: relative;
   flex: 70%;
   display: flex;
   background-color: beige;
+
+}
+#login_user_text {
+  background-color: rgb(189, 240, 184);
+  align-self: flex-end;
+  border-radius: 30%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+#other_user_text {
+  align-self: flex-start;
+  background-color: aliceblue;
+  border-radius: 30%;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 #input_text
 {
   align-self: flex-end;
+  flex: 70%;
+  display: flex;
+  background-color: beige;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
 }
 .addchat
 {
