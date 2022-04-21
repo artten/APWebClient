@@ -14,19 +14,83 @@ function App() {
       password: "art1",
       nikename: "art ",
       image: "Images/logo.png",
+      recipientsList: ["sasr"],
     },
     {
       userName: "sasr",
       password: "sar123",
       nikename: "ssaa ",
       image: "Images/logo.png",
+      recipientsList: ["art1","ilona"],
     },
     {
       userName: "ilona",
       password: "ilo19",
       nikename: "anoli ",
       image: "Images/logo.png",
+      recipientsList: ["sasr"],
     },
+    {
+      userName: "Bogos Binted",
+      password: "sss",
+      nikename: "Bogos",
+      image: "Images/logo.png",
+      recipientsList: ["Bogos Binted"],
+    },
+    {
+      userName: "monsoon",
+      password: "eee",
+      nikename: "monsoon",
+      image: "Images/logo.png",
+      recipientsList: ["sasr","art1","ilona","Bogos Binted"],
+    },
+  ]);
+
+  var [chats, setChats] = useState([
+    {
+      recipients: ["artiom", "sasr"],
+      texts: [
+        { name: "art1", type: "text", message: "hi" },
+        { name: "sasr", type: "text", message: "lol" },
+        { name: "art1", type: "text", message: "hi2" },
+      ],
+    },
+    {
+      recipients: ["ilona", "sasr"],
+      texts: [
+        { name: "art1", type: "image", message: "./images/logo.png" },
+        { name: "art1", type: "text", message: "hi" },
+      ],
+    },
+    {
+      recipients: ["monsoon","sasr"],
+      texts: [
+        { name: "monsoon", type: "text", message: "AMUGUS" },
+        { name: "sasr", type: "text", message: "logo" },
+      ],
+    },
+    {
+      recipients: ["monsoon","ilona"],
+      texts: [
+        { name: "monsoon", type: "text", message: "AMUGUS" },
+        { name: "ilona", type: "text", message: "logo" },
+      ],
+    },
+    {
+      recipients: ["monsoon","art1"],
+      texts: [
+        { name: "monsoon", type: "text", message: "AMUGUS" },
+        { name: "art1", type: "text", message: "logo" },
+      ],
+    },
+    {
+      recipients: ["monsoon","Bogos Binted"],
+      texts: [
+          { name: "monsoon", type: "text", message: "And it will come" },
+          { name: "monsoon", type: "text", message: "like a flood of pain" },
+          { name: "monsoon", type: "text", message: "pouring down on me" },
+        ],
+      },
   ]);
 
   var [loginUser, setLoginUser] = useState({ loginUser: "" });
@@ -52,6 +116,8 @@ function App() {
                   loginUser={loginUser}
                   setLoginUser={setLoginUser}
                   users={users}
+                  chats={chats}
+                  sestChats={setChats}
                 />
               }
             />

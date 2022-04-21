@@ -1,7 +1,7 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-import './App.css';
+import "./App.css";
 
 function ChatApp(props) {
   var [addUsername, setUserName] = useState("");
@@ -48,6 +48,16 @@ function ChatApp(props) {
     });
   }
   
+  const [newText, setNewText] = useState("")
+
+  function addText() {
+          props.chats[
+            props.users.findIndex(
+              (user) => user.userName == props.loginUser.loginUser
+            )
+          ]
+  }
+
   return (
     <body>
     <div className="chatApp">
@@ -85,7 +95,21 @@ function ChatApp(props) {
             </button>
           </div>
         </div>
-        <div className="rightSide"></div>
+        <div class="rightSide">
+          <input
+            type="text"
+            id="input_text"
+            className="form-control"
+            placeholder="Text"
+            value={newText}
+            onChange={(e) => setNewText(e.target.value)}
+          />
+          <div id="input_text" class="input-group-append">
+            <button class="btn btn-primary" type="button" onClick={addText}>
+              Send
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     </body>
