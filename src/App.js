@@ -116,6 +116,8 @@ function App() {
                   loginUser={loginUser}
                   setLoginUser={setLoginUser}
                   users={users}
+                  chats={chats}
+                  sestChats={setChats}
                 />
               }
             />
