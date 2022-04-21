@@ -46,6 +46,13 @@
     border-radius: 50%;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.06),0 2px 2px 0 rgba(0,0,0,0.05);
 }
+.nickname
+{
+  position: relative;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  right: 50px;
+}
 .container .rightSide
 {
   position: relative;
