@@ -114,7 +114,7 @@ function Register(props) {
           </Modal.Footer>
         </Modal.Dialog>
       </Modal>
-      ;<h1>Register Page</h1>
+      <h1>Register Page</h1>
       <form>
         <div className="form-group">
           <label>User Name</label>
