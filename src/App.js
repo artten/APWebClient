@@ -51,7 +51,11 @@ function App() {
       recipients: ["artiom", "sasr"],
       texts: [
         { name: "artiom", type: "text", message: "hi" },
-        { name: "sasr", type: "text", message: "lol" },
+        {
+          name: "sasr",
+          type: "text",
+          message: "lossssssssssssssssssssssssssl",
+        },
         { name: "artiom", type: "text", message: "hi2" },
       ],
     },
