@@ -145,7 +145,7 @@ function ChatApp(props) {
     props.setChats([...props.chats, temp])
     handleClose();
   }
-  
+
   function isUserValid() {
     var temp = props.users;
     var i = 0;
