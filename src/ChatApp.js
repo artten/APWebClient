@@ -28,15 +28,21 @@ function ChatApp(props) {
     }
     return indents;
   }
-  var [newContact, setNewContace] = useState("");
+  var [newContact, setNewContact] = useState("");
   var [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
 
   function addChatTolist() {
+    var temp = {
+      recipients: [props.loginUser.loginUser, newContact],
+      texts: [],
+    }
+    props.setChats([...props.chats, temp])
     handleClose();
   }
+  
   function isUserValid() {
     var temp = props.users;
     var i = 0;
@@ -98,7 +104,7 @@ function ChatApp(props) {
                 className="form-control-sm"
                 placeholder="User Name"
                 value={newContact}
-                onChange={(e) => setNewContace(e.target.value)}
+                onChange={(e) => setNewContact(e.target.value)}
               ></input>
               <button onClick={isUserValid}>Add</button>
               <br />

@@ -48,10 +48,17 @@
 }
 .nickname
 {
-  position: relative;
+  position: absolute;
   justify-content: space-between;
   margin-bottom: 5px;
-  right: 85px;
+  left: 80px;
+  
+}
+.nickname h4
+{
+  font-size: 1.5em;
+  font-weight: 600;
+  color: black;
 }
 .container .rightSide
 {
