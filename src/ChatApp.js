@@ -10,6 +10,12 @@ function ChatApp(props) {
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
 
+  // recording vars
+  var [audioVar, setAudioVar] = useState("");
+  var [recorder, setRecorder] = useState("");
+  var [recording, setRecording] = useState(false);
+  // end recording vars
+
   useEffect(
     () => {
       console.log("changed");
@@ -18,13 +24,69 @@ function ChatApp(props) {
     [getTextsToDisplay]
   );
 
+  // audio recording code
+  const recordAudio = () =>
+  new Promise(async resolve => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+    const audioChunks = [];
+
+    mediaRecorder.addEventListener("dataavailable", event => {
+      audioChunks.push(event.data);
+    });
+    const start = () => mediaRecorder.start();
+
+    const stop = () =>
+      new Promise(resolve => {
+        mediaRecorder.addEventListener("stop", () => {
+          const audioBlob = new Blob(audioChunks);
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+          const play = () => audio.play();
+          resolve({ audioBlob, audioUrl, play });
+        });
+
+        mediaRecorder.stop();
+      });
+
+    resolve({ start, stop });
+  });
+
+  const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+  function recAudio() {
+    (async () => {
+    if (recording == false) {
+      document.getElementById("audioB").innerHTML = 'stop';
+      recording = true;
+        recorder = await recordAudio();
+        recorder.start();
+    }
+    else {
+      document.getElementById("audioB").innerHTML = 'rec';
+      recording = false;
+      audioVar = await recorder.stop();
+      audioVar.play();
+    }
+    })();
+  }
+
+  // end of audio recording code
+
   function pText() {
     var indents = [];
     for (var i = 0; i < textsToDisplay.length; i++) {
-      if (textsToDisplay[i].name == "artiom") {
-        indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
-      } else
-        indents.push(<p id="other_user_text">{textsToDisplay[i].message}</p>);
+      if (textsToDisplay[i].type == "text"){
+        if (textsToDisplay[i].name == "artiom") {
+          indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
+        } else
+          indents.push(<p id="other_user_text">{textsToDisplay[i].message}</p>);
+      }
+      if (textsToDisplay[i].type == "audio"){
+        if (textsToDisplay[i].name == "artiom") {
+          indents.push(<p id="login_user_text"><Button>play</Button>{"audio message"}</p>);
+        } else
+          indents.push(<p id="other_user_text"><Button>play</Button>{"audio message"}</p>);
+      }
     }
     return indents;
   }
@@ -141,6 +203,11 @@ function ChatApp(props) {
           <div id="input_text">
             {pText()}
             <div class="input-group mb-3">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="audioB" type="button" onClick={recAudio}>
+                  rec
+                </button>
+              </div>
               <input
                 type="text"
                 class="form-control"
