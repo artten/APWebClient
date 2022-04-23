@@ -166,11 +166,18 @@ function ChatApp(props) {
     handleClose();
   }
 
-  function isUserValid() {
+  function isAddValid() {
     var temp = props.users;
     var i = 0;
+    if (newContact == props.loginUser.loginUser){
+      var error = document.getElementById("error");
+      error.textContent = "Can't add yourself";
+      error.style.color = "red";
+      return;
+    }
     while (i < temp.length) {
       if (temp[i].userName === newContact) {
+        
         addChatTolist();
         getRecipientsToDisplay();
         return;
@@ -296,7 +303,7 @@ function ChatApp(props) {
                 value={newContact}
                 onChange={(e) => setNewContact(e.target.value)}
               ></input>
-              <button onClick={isUserValid}>Add</button>
+              <button onClick={isAddValid}>Add</button>
               <br />
               <div id="error"></div>
             </div>
