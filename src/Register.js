@@ -14,13 +14,11 @@ function Register(props) {
     visability: false,
   });
 
-
-  navigator.mediaDevices.getUserMedia({ audio: true })
-  .then(stream => {
+  navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
     const mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.start();
   });
-  
+
   checkIfUserExist = checkIfUserExist.bind(this);
 
   function checkIfUserExist() {
@@ -84,6 +82,7 @@ function Register(props) {
       nickname: nickname,
       password: password,
       image: image,
+      recipientsList: [],
     };
     props.setUsers([...props.users, temp]);
   }

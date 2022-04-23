@@ -7,7 +7,7 @@ import React, { useRef, useState, useEffect } from "react";
 
 function ChatApp(props) {
   const [newText, setNewText] = useState("");
-  var [otherUser, setOtherUser] = useState("");
+  const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
   const [recipientsToDisplay, setRecipientsToDisplay] = useState("");
 
@@ -21,55 +21,74 @@ function ChatApp(props) {
   var recording;
   // end recording vars
 
-  useEffect(
-    () => {},[otherUser]);
-  
+  useEffect(() => {
+    console.log("lol");
+  }, [textsToDisplay]);
 
-    function ttest(i) {
-      console.log("aud");
-      textsToDisplay[i].message.play();
-      /*
-      for (var i = 0; i < textsToDisplay.length; i++) {
-        if (textsToDisplay[i].type == "audio"){
-          if (textsToDisplay[i].name == "artiom") {
-           if (i == num){
-            textsToDisplay[i].message.play();
-            }
-          }
-        }
-      }
-      */
-    }
-  
+  useEffect(() => {
+    getTextsToDisplay(otherUser);
+  }, [otherUser]);
+
+  useEffect(() => {
+    var tempRe =
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ].recipientsList;
+    var tempIndex = props.users.findIndex(
+      (user) => user.userName == props.loginUser.loginUser
+    );
+    var tempUser =
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ];
+    var tempUsers = props.users;
+    tempRe.push(newContact);
+    tempUser.recipientsList = tempRe;
+    tempUsers[tempIndex] = tempUser;
+    props.setUsers(tempUsers);
+  }, [props.chats]);
+
+  useEffect(() => {
+    getRecipientsToDisplay();
+  }, [props.users]);
+
+  function ttest(i) {
+    console.log("aud");
+    textsToDisplay[i].message.play();
+  }
+
   // audio recording code
   const recordAudio = () =>
-  new Promise(async resolve => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    const audioChunks = [];
+    new Promise(async (resolve) => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      const audioChunks = [];
 
-    mediaRecorder.addEventListener("dataavailable", event => {
-      audioChunks.push(event.data);
-    });
-    const start = () => mediaRecorder.start();
+      mediaRecorder.addEventListener("dataavailable", (event) => {
+        audioChunks.push(event.data);
+      });
+      const start = () => mediaRecorder.start();
 
-    const stop = () =>
-      new Promise(resolve => {
-        mediaRecorder.addEventListener("stop", () => {
-          const audioBlob = new Blob(audioChunks);
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-          const play = () => audio.play();
-          resolve({ audioBlob, audioUrl, play });
+      const stop = () =>
+        new Promise((resolve) => {
+          mediaRecorder.addEventListener("stop", () => {
+            const audioBlob = new Blob(audioChunks);
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            const play = () => audio.play();
+            resolve({ audioBlob, audioUrl, play });
+          });
+
+          mediaRecorder.stop();
         });
 
-        mediaRecorder.stop();
-      });
+      resolve({ start, stop });
+    });
 
-    resolve({ start, stop });
-  });
-
-  const sleep = time => new Promise(resolve => setTimeout(resolve, time));
   function recAudio() {
     console.log(recording);
     (async () => {
@@ -108,9 +127,6 @@ function ChatApp(props) {
       props.setChats(tempChats);
       getTextsToDisplay();
       setNewText("")
-
-
-      
       //audioVar.play();
     }
     console.log(recording);
@@ -119,51 +135,78 @@ function ChatApp(props) {
 
   // end of audio recording code
 
-  
-
   function pText() {
     var indents = [];
     var b;
-    for (let j = 0; j < textsToDisplay.length; j++) {
-      if (textsToDisplay[j].type == "text"){
-        if (textsToDisplay[j].name == props.loginUser) {
-          indents.push(<p id="login_user_text">{textsToDisplay[j].message}</p>);
+    for (var i = 0; i < textsToDisplay.length; i++) {
+      if (textsToDisplay[i].type == "text") {
+        if (textsToDisplay[i].name == props.loginUser) {
+          indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
         } else
-          indents.push(<p id="other_user_text">{textsToDisplay[j].message}</p>);
+          indents.push(<p id="other_user_text">{textsToDisplay[i].message}</p>);
       }
-      if (textsToDisplay[j].type == "audio"){
-        if (textsToDisplay[j].name == props.loginUser) {
+      if (textsToDisplay[i].type == "audio") {
+        if (textsToDisplay[i].name == props.loginUser) {
           b = document.createElement("button");
-          indents.push(<p id="login_user_text"><Button type="button" id="playA" onClick={() => ttest(j)}>play3</Button>{"audio message"}</p>);
+          indents.push(
+            <p id="login_user_text">
+              <Button
+                type="button"
+                id="playA"
+                onClick={() => {
+                  ttest(i);
+                }}
+              >
+                play3
+              </Button>
+              {"audio message"}
+            </p>
+          );
         } else {
-        indents.push(<p id="other_user_text"><Button type="button" onClick={() => ttest(j)}>play3</Button>{"audio message"}</p>);
+          indents.push(
+            <p id="other_user_text">
+              <Button type="button" onClick={() => {
+                ttest(i);
+              }}>
+                play3
+              </Button>
+              {"audio message"}
+            </p>
+          );
         }
       }
     }
     return indents;
   }
+
+  // vars for adding chat
   var [newContact, setNewContact] = useState("");
   var [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
 
   function addChatTolist() {
     var temp = {
       recipients: [props.loginUser.loginUser, newContact],
       texts: [],
-    }
-    props.setChats([...props.chats, temp])
+    };
+    props.setChats([...props.chats, temp]);
     handleClose();
   }
 
-  function isUserValid() {
+  function isAddValid() {
     var temp = props.users;
     var i = 0;
+    if (newContact == props.loginUser.loginUser){
+      var error = document.getElementById("error");
+      error.textContent = "Can't add yourself";
+      error.style.color = "red";
+      return;
+    }
     while (i < temp.length) {
       if (temp[i].userName === newContact) {
         addChatTolist();
-        getRecipientsToDisplay()
+        getRecipientsToDisplay();
         return;
       }
       i++;
@@ -174,49 +217,54 @@ function ChatApp(props) {
   }
 
   function addText() {
-    console.log(props.loginUser)
-    console.log(otherUser)
+    console.log(newText);
+    if (newText != "") {
+      var tempRecipients = [];
+      var tempText = [];
+      var temp = {
+        name: props.loginUser,
+        type: "text",
+        message: newText,
+      };
+      var tempChats = props.chats;
+      var index = props.chats.findIndex(
+        (chat) =>
+          (chat.recipients[0] == props.loginUser && //props.loginUser &&
+            chat.recipients[1] == otherUser) ||
+          (chat.recipients[0] == otherUser &&
+            chat.recipients[1] == props.loginUser)
+      );
+      if (index == -1) {
+        console.log("-1");
+        tempRecipients.push(props.loginUser);
+        tempRecipients.push(otherUser);
+        tempText.push(temp);
+        tempChats.push({ recipients: tempRecipients, texts: tempText });
+      } else {
+        tempRecipients = props.chats[index].recipients;
+        tempText = props.chats[index].texts;
+        tempText.push(temp);
+        tempChats[index] = { recipients: tempRecipients, texts: tempText };
+      }
 
-    var tempRecipients = []
-    var tempText = []
-    var temp = {
-      name: props.loginUser,
-      type: "text",
-      message: newText,
-    };
-    var tempChats = props.chats;
-    var index = props.chats.findIndex(
-      (chat) =>
-      (chat.recipients[0] == props.loginUser && //props.loginUser &&
-      chat.recipients[1] == otherUser) ||
-      (chat.recipients[0] == otherUser && 
-      chat.recipients[1] == props.loginUser)
-    );
-    if (index == -1) {
-      tempRecipients.push(props.loginUser); 
-      tempRecipients.push(otherUser); 
-      tempText.push(temp);
-      tempChats.push({ recipients: tempRecipients, texts: tempText });
+      props.setChats(tempChats);
+      getTextsToDisplay();
+      setNewText("");
     }
-    else {
-      tempRecipients = props.chats[index].recipients;
-      tempText = props.chats[index].texts;
-      tempText.push(temp);
-      tempChats[index] = { recipients: tempRecipients, texts: tempText };
-    } 
-    
-    props.setChats(tempChats);
-    getTextsToDisplay();
-    setNewText("");
   }
 
-
   function getRecipientsToDisplay() {
-    console.log(props.users[0].recipientsList);
-    setRecipientsToDisplay( 
+    console.log(
       props.users[
         props.users.findIndex(
-          (user) => user.userName == "monsoon"
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ].recipientsList
+    );
+    setRecipientsToDisplay(
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
         )
       ].recipientsList
     );
@@ -227,10 +275,40 @@ function ChatApp(props) {
       props.chats[
         props.chats.findIndex(
           (chat) =>
-          (chat.recipients[0] == props.loginUser && //props.loginUser &&
+            (chat.recipients[0] == props.loginUser && //props.loginUser &&
+              chat.recipients[1] == otherUser) ||
+            (chat.recipients[0] == otherUser &&
+              chat.recipients[1] == props.loginUser)
+        )
+      ].texts
+    );
+  }
+
+  function getTextsToDisplay(otheruser) {
+    console.log("here");
+    if (otherUser == "") {
+      setTextsToDisplay({});
+      return;
+    }
+    var temp = props.chats.findIndex(
+      (chat) =>
+        (chat.recipients[0] == props.loginUser && //props.loginUser &&
           chat.recipients[1] == otherUser) ||
-          (chat.recipients[0] == otherUser && 
+        (chat.recipients[0] == otherUser &&
           chat.recipients[1] == props.loginUser)
+    );
+    if ((temp = -1)) {
+      setTextsToDisplay({});
+      return;
+    }
+    setTextsToDisplay(
+      props.chats[
+        props.chats.findIndex(
+          (chat) =>
+            (chat.recipients[0] == props.loginUser && //props.loginUser &&
+              chat.recipients[1] == otherUser) ||
+            (chat.recipients[0] == otherUser &&
+              chat.recipients[1] == props.loginUser)
         )
       ].texts
     );
@@ -238,13 +316,25 @@ function ChatApp(props) {
 
   function testt(i) {
     setOtherUser(recipientsToDisplay[i]);
+    getTextsToDisplay(recipientsToDisplay[i]);
   }
 
   function printRecipients() {
     var indents = [];
     for (let i = 0; i < recipientsToDisplay.length; i++) {
-      var name = recipientsToDisplay[i];
-      indents.push(<p onClick={() => testt(i)} id="recipients">{recipientsToDisplay[i]}</p>);
+      if (otherUser == recipientsToDisplay[i]) {
+        indents.push(
+          <p onClick={() => testt(i)} id="current_recipients">
+            {recipientsToDisplay[i]}
+          </p>
+        );
+      } else {
+        indents.push(
+          <p onClick={() => testt(i)} id="recipients">
+            {recipientsToDisplay[i]}
+          </p>
+        );
+      }
     }
     return indents;
   }
@@ -264,7 +354,7 @@ function ChatApp(props) {
                 value={newContact}
                 onChange={(e) => setNewContact(e.target.value)}
               ></input>
-              <button onClick={isUserValid}>Add</button>
+              <button onClick={isAddValid}>Add</button>
               <br />
               <div id="error"></div>
             </div>
@@ -300,9 +390,7 @@ function ChatApp(props) {
               onClick={handleShow}
             ></button>
           </div>
-          <div>
-          {printRecipients()}
-          </div>
+          <div>{printRecipients()}</div>
         </div>
         <div class="rightSide">
           <div id="input_text">
@@ -317,7 +405,12 @@ function ChatApp(props) {
                 onChange={(e) => setNewText(e.target.value)}
               />
               <div class="input-group-append">
-                <button class="btn btn-success" id="audioB" type="button" onClick={recAudio}>
+                <button
+                  class="btn btn-success"
+                  id="audioB"
+                  type="button"
+                  onClick={recAudio}
+                >
                   rec
                 </button>
               </div>

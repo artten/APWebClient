@@ -111,7 +111,7 @@ function App() {
         <Router>
           <Header></Header>
           <Routes>
-            <Route exact path="/" element={<Login users={users} />} />
+            <Route exact path="/" element={<Login users={users} loginUser={loginUser} setLoginUser={setLoginUser} />} />
             <Route
               exact
               path="/chat"
@@ -120,6 +120,7 @@ function App() {
                   loginUser={loginUser}
                   setLoginUser={setLoginUser}
                   users={users}
+                  setUsers={setUsers}
                   chats={chats}
                   setChats={setChats}
                 />

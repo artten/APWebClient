@@ -54,6 +54,14 @@
   left: 80px;
   
 }
+
+#recipients {
+  background-color: bisque;
+}
+
+#current_recipients { 
+  background-color: burlywood;
+}
 .nickname h4
 {
   font-size: 1.5em;
