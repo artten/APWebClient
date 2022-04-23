@@ -203,9 +203,8 @@ function ChatApp(props) {
     }
     while (i < temp.length) {
       if (temp[i].userName === newContact) {
-        
         addChatTolist();
-
+        getRecipientsToDisplay();
         return;
       }
       i++;
