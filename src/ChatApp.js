@@ -12,16 +12,23 @@ function ChatApp(props) {
   const [recipientsToDisplay, setRecipientsToDisplay] = useState("");
 
   // recording vars
-  var [audioVar, setAudioVar] = useState("");
-  var [recorder, setRecorder] = useState("");
-  var [recording, setRecording] = useState(false);
+  //var [audioVar, setAudioVar] = useState("");
+ // var [recorder, setRecorder] = useState("");
+  //var [recording, setRecording] = useState(false);
+
+  var audioVar;
+  var recorder;
+  var recording;
   // end recording vars
 
   useEffect(
     () => {},[otherUser]);
   
 
-    function ttest(num) {
+    function ttest(i) {
+      console.log("aud");
+      textsToDisplay[i].message.play();
+      /*
       for (var i = 0; i < textsToDisplay.length; i++) {
         if (textsToDisplay[i].type == "audio"){
           if (textsToDisplay[i].name == "artiom") {
@@ -31,6 +38,7 @@ function ChatApp(props) {
           }
         }
       }
+      */
     }
   
   // audio recording code
@@ -63,14 +71,17 @@ function ChatApp(props) {
 
   const sleep = time => new Promise(resolve => setTimeout(resolve, time));
   function recAudio() {
+    console.log(recording);
     (async () => {
-    if (recording == false) {
+    if (recording != true) {
       document.getElementById("audioB").innerHTML = 'stop';
       document.getElementById("audioB").className = "btn btn-danger";
       recording = true;
       recorder = await recordAudio();
       recorder.start();
+      
       setNewText("Recording...")
+      console.log(recording);
     }
     else {
       document.getElementById("audioB").innerHTML = 'rec';
@@ -96,13 +107,13 @@ function ChatApp(props) {
       tempChats[index] = { recipients: tempRecipients, texts: tempText };
       props.setChats(tempChats);
       getTextsToDisplay();
-      setAudioVar("")
       setNewText("")
 
 
       
       //audioVar.play();
     }
+    console.log(recording);
     })();
   }
 
@@ -113,19 +124,19 @@ function ChatApp(props) {
   function pText() {
     var indents = [];
     var b;
-    for (var i = 0; i < textsToDisplay.length; i++) {
-      if (textsToDisplay[i].type == "text"){
-        if (textsToDisplay[i].name == props.loginUser) {
-          indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
+    for (let j = 0; j < textsToDisplay.length; j++) {
+      if (textsToDisplay[j].type == "text"){
+        if (textsToDisplay[j].name == props.loginUser) {
+          indents.push(<p id="login_user_text">{textsToDisplay[j].message}</p>);
         } else
-          indents.push(<p id="other_user_text">{textsToDisplay[i].message}</p>);
+          indents.push(<p id="other_user_text">{textsToDisplay[j].message}</p>);
       }
-      if (textsToDisplay[i].type == "audio"){
-        if (textsToDisplay[i].name == props.loginUser) {
+      if (textsToDisplay[j].type == "audio"){
+        if (textsToDisplay[j].name == props.loginUser) {
           b = document.createElement("button");
-          indents.push(<p id="login_user_text"><Button type="button" id="playA" onClick={()=>{ttest(3)}}>play3</Button>{"audio message"}</p>);
+          indents.push(<p id="login_user_text"><Button type="button" id="playA" onClick={() => ttest(j)}>play3</Button>{"audio message"}</p>);
         } else {
-        indents.push(<p id="other_user_text"><Button type="button" onClick={ttest(3)}>play3</Button>{"audio message"}</p>);
+        indents.push(<p id="other_user_text"><Button type="button" onClick={() => ttest(j)}>play3</Button>{"audio message"}</p>);
         }
       }
     }
@@ -182,7 +193,6 @@ function ChatApp(props) {
       chat.recipients[1] == props.loginUser)
     );
     if (index == -1) {
-      console.log("-1");
       tempRecipients.push(props.loginUser); 
       tempRecipients.push(otherUser); 
       tempText.push(temp);
@@ -228,11 +238,9 @@ function ChatApp(props) {
 
   function testt(i) {
     setOtherUser(recipientsToDisplay[i]);
-    console.log(otherUser);
   }
 
   function printRecipients() {
-    console.log("here");
     var indents = [];
     for (let i = 0; i < recipientsToDisplay.length; i++) {
       var name = recipientsToDisplay[i];
