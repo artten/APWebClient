@@ -26,6 +26,7 @@ function ChatApp(props) {
   }, [otherUser]);
 
   useEffect(() => {
+    console.log("chats");
     var tempRe =
       props.users[
         props.users.findIndex(
@@ -46,11 +47,18 @@ function ChatApp(props) {
     tempUser.recipientsList = tempRe;
     tempUsers[tempIndex] = tempUser;
     props.setUsers(tempUsers);
+    getRecipientsToDisplay();
   }, [props.chats]);
 
-  useEffect(() => {
-    getRecipientsToDisplay();
-  }, [props.users]);
+  useEffect(
+    () => {
+      console.log("users");
+      getRecipientsToDisplay();
+      console.log(recipientsToDisplay);
+    },
+    [props.chats],
+    [props.users]
+  );
 
   function ttest(num) {
     for (var i = 0; i < textsToDisplay.length; i++) {
@@ -197,9 +205,22 @@ function ChatApp(props) {
     var i = 0;
     while (i < temp.length) {
       if (temp[i].userName === newContact) {
-        addChatTolist();
-
-        return;
+        var temp =
+          props.users[
+            props.users.findIndex(
+              (user) => user.userName == props.loginUser.loginUser
+            )
+          ].recipientsList.includes(newContact);
+        console.log(temp);
+        if (!temp) {
+          addChatTolist();
+          return;
+        } else {
+          var error = document.getElementById("error");
+          error.textContent = "Already have a chat";
+          error.style.color = "red";
+          return;
+        }
       }
       i++;
     }
@@ -246,13 +267,6 @@ function ChatApp(props) {
   }
 
   function getRecipientsToDisplay() {
-    console.log(
-      props.users[
-        props.users.findIndex(
-          (user) => user.userName == props.loginUser.loginUser
-        )
-      ].recipientsList
-    );
     setRecipientsToDisplay(
       props.users[
         props.users.findIndex(
