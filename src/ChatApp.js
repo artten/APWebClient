@@ -17,13 +17,40 @@ function ChatApp(props) {
   var [recording, setRecording] = useState(false);
   // end recording vars
 
-  useEffect(
-    () => {
-      console.log("lol");
-    },
-    [textsToDisplay],
-    [setTextsToDisplay]
-  );
+  useEffect(() => {
+    console.log("lol");
+  }, [textsToDisplay]);
+
+  useEffect(() => {
+    getTextsToDisplay(otherUser);
+  }, [otherUser]);
+
+  useEffect(() => {
+    var tempRe =
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ].recipientsList;
+    var tempIndex = props.users.findIndex(
+      (user) => user.userName == props.loginUser.loginUser
+    );
+    var tempUser =
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ];
+    var tempUsers = props.users;
+    tempRe.push(newContact);
+    tempUser.recipientsList = tempRe;
+    tempUsers[tempIndex] = tempUser;
+    props.setUsers(tempUsers);
+  }, [props.chats]);
+
+  useEffect(() => {
+    getRecipientsToDisplay();
+  }, [props.users]);
 
   function ttest(num) {
     for (var i = 0; i < textsToDisplay.length; i++) {
@@ -65,7 +92,6 @@ function ChatApp(props) {
       resolve({ start, stop });
     });
 
-  const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
   function recAudio() {
     (async () => {
       if (recording == false) {
@@ -179,7 +205,7 @@ function ChatApp(props) {
       if (temp[i].userName === newContact) {
         
         addChatTolist();
-        getRecipientsToDisplay();
+
         return;
       }
       i++;
@@ -190,6 +216,7 @@ function ChatApp(props) {
   }
 
   function addText() {
+    console.log(newText);
     if (newText != "") {
       var tempRecipients = [];
       var tempText = [];
@@ -226,10 +253,19 @@ function ChatApp(props) {
   }
 
   function getRecipientsToDisplay() {
-    console.log(props.users[0].recipientsList);
+    console.log(
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ].recipientsList
+    );
     setRecipientsToDisplay(
-      props.users[props.users.findIndex((user) => user.userName == "monsoon")]
-        .recipientsList
+      props.users[
+        props.users.findIndex(
+          (user) => user.userName == props.loginUser.loginUser
+        )
+      ].recipientsList
     );
   }
 
@@ -248,7 +284,22 @@ function ChatApp(props) {
   }
 
   function getTextsToDisplay(otheruser) {
-    console.log(otheruser);
+    console.log("here");
+    if (otherUser == "") {
+      setTextsToDisplay({});
+      return;
+    }
+    var temp = props.chats.findIndex(
+      (chat) =>
+        (chat.recipients[0] == props.loginUser && //props.loginUser &&
+          chat.recipients[1] == otherUser) ||
+        (chat.recipients[0] == otherUser &&
+          chat.recipients[1] == props.loginUser)
+    );
+    if ((temp = -1)) {
+      setTextsToDisplay({});
+      return;
+    }
     setTextsToDisplay(
       props.chats[
         props.chats.findIndex(
@@ -260,7 +311,6 @@ function ChatApp(props) {
         )
       ].texts
     );
-    console.log();
   }
 
   function testt(i) {
