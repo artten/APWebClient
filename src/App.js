@@ -120,6 +120,7 @@ function App() {
                   loginUser={loginUser}
                   setLoginUser={setLoginUser}
                   users={users}
+                  setUsers={setUsers}
                   chats={chats}
                   setChats={setChats}
                 />
