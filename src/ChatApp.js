@@ -18,7 +18,7 @@ function ChatApp(props) {
   // end recording vars
 
   useEffect(() => {
-    console.log("lol");
+    console.log(textsToDisplay);
   }, [textsToDisplay]);
 
   useEffect(() => {
@@ -48,6 +48,7 @@ function ChatApp(props) {
     tempUsers[tempIndex] = tempUser;
     props.setUsers(tempUsers);
     getRecipientsToDisplay();
+    setNewContact("");
   }, [props.chats]);
 
   useEffect(
@@ -115,17 +116,17 @@ function ChatApp(props) {
         recording = false;
         audioVar = await recorder.stop();
         var temp = {
-          name: props.loginUser,
+          name: props.loginUser.loginUser,
           type: "audio",
           message: audioVar,
         };
         var tempChats = props.chats;
         var index = props.chats.findIndex(
           (chat) =>
-            (chat.recipients[0] == props.loginUser && //props.loginUser &&
+            (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
               chat.recipients[1] == otherUser) ||
             (chat.recipients[0] == otherUser &&
-              chat.recipients[1] == props.loginUser)
+              chat.recipients[1] == props.loginUser.loginUser)
         );
         var tempRecipients = props.chats[index].recipients;
         var tempText = props.chats[index].texts;
@@ -148,13 +149,13 @@ function ChatApp(props) {
     var b;
     for (var i = 0; i < textsToDisplay.length; i++) {
       if (textsToDisplay[i].type == "text") {
-        if (textsToDisplay[i].name == props.loginUser) {
+        if (textsToDisplay[i].name == props.loginUser.loginUser) {
           indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
         } else
           indents.push(<p id="other_user_text">{textsToDisplay[i].message}</p>);
       }
       if (textsToDisplay[i].type == "audio") {
-        if (textsToDisplay[i].name == props.loginUser) {
+        if (textsToDisplay[i].name == props.loginUser.loginUser) {
           b = document.createElement("button");
           indents.push(
             <p id="login_user_text">
@@ -203,7 +204,7 @@ function ChatApp(props) {
   function isAddValid() {
     var temp = props.users;
     var i = 0;
-    if (newContact == props.loginUser.loginUser){
+    if (newContact == props.loginUser.loginUser) {
       var error = document.getElementById("error");
       error.textContent = "Can't add yourself";
       error.style.color = "red";
@@ -239,26 +240,26 @@ function ChatApp(props) {
   }
 
   function addText() {
-    console.log(newText);
     if (newText != "") {
       var tempRecipients = [];
       var tempText = [];
       var temp = {
-        name: props.loginUser,
+        name: props.loginUser.loginUser,
         type: "text",
         message: newText,
       };
       var tempChats = props.chats;
       var index = props.chats.findIndex(
         (chat) =>
-          (chat.recipients[0] == props.loginUser && //props.loginUser &&
+          (chat.recipients[0] == props.loginUser.loginUser &&
             chat.recipients[1] == otherUser) ||
           (chat.recipients[0] == otherUser &&
-            chat.recipients[1] == props.loginUser)
+            chat.recipients[1] == props.loginUser.loginUser)
       );
+      console.log(props.chats[index]);
       if (index == -1) {
         console.log("-1");
-        tempRecipients.push(props.loginUser);
+        tempRecipients.push(props.loginUser.loginUser);
         tempRecipients.push(otherUser);
         tempText.push(temp);
         tempChats.push({ recipients: tempRecipients, texts: tempText });
@@ -290,10 +291,10 @@ function ChatApp(props) {
       props.chats[
         props.chats.findIndex(
           (chat) =>
-            (chat.recipients[0] == props.loginUser && //props.loginUser &&
+            (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
               chat.recipients[1] == otherUser) ||
             (chat.recipients[0] == otherUser &&
-              chat.recipients[1] == props.loginUser)
+              chat.recipients[1] == props.loginUser.loginUser)
         )
       ].texts
     );
@@ -301,29 +302,33 @@ function ChatApp(props) {
 
   function getTextsToDisplay(otheruser) {
     console.log("here");
+    console.log(otherUser);
     if (otherUser == "") {
       setTextsToDisplay({});
       return;
     }
     var temp = props.chats.findIndex(
       (chat) =>
-        (chat.recipients[0] == props.loginUser && //props.loginUser &&
+        (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
           chat.recipients[1] == otherUser) ||
         (chat.recipients[0] == otherUser &&
-          chat.recipients[1] == props.loginUser)
+          chat.recipients[1] == props.loginUser.loginUser)
     );
-    if ((temp = -1)) {
+    console.log(temp);
+    if (temp == -1) {
       setTextsToDisplay({});
       return;
     }
+    console.log(props.users[temp]);
+    console.log(temp);
     setTextsToDisplay(
       props.chats[
         props.chats.findIndex(
           (chat) =>
-            (chat.recipients[0] == props.loginUser && //props.loginUser &&
+            (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
               chat.recipients[1] == otherUser) ||
             (chat.recipients[0] == otherUser &&
-              chat.recipients[1] == props.loginUser)
+              chat.recipients[1] == props.loginUser.loginUser)
         )
       ].texts
     );
