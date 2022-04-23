@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
 
 function ChatApp(props) {
-  
   const [newText, setNewText] = useState("");
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
@@ -157,7 +156,6 @@ function ChatApp(props) {
   var [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
 
   function addChatTolist() {
     var temp = {
@@ -242,6 +240,46 @@ function ChatApp(props) {
     );
   }
 
+  function getTextsToDisplay(otheruser) {
+    console.log(otheruser);
+    setTextsToDisplay(
+      props.chats[
+        props.chats.findIndex(
+          (chat) =>
+            (chat.recipients[0] == props.loginUser && //props.loginUser &&
+              chat.recipients[1] == otherUser) ||
+            (chat.recipients[0] == otherUser &&
+              chat.recipients[1] == props.loginUser)
+        )
+      ].texts
+    );
+    console.log();
+  }
+
+  function testt(i) {
+    setOtherUser(recipientsToDisplay[i]);
+    getTextsToDisplay(recipientsToDisplay[i]);
+  }
+
+  function printRecipients() {
+    var indents = [];
+    for (let i = 0; i < recipientsToDisplay.length; i++) {
+      if (otherUser == recipientsToDisplay[i]) {
+        indents.push(
+          <p onClick={() => testt(i)} id="current_recipients">
+            {recipientsToDisplay[i]}
+          </p>
+        );
+      } else {
+        indents.push(
+          <p onClick={() => testt(i)} id="recipients">
+            {recipientsToDisplay[i]}
+          </p>
+        );
+      }
+    }
+    return indents;
+  }
 
   return (
     <div className="chatApp">
