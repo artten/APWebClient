@@ -12,14 +12,18 @@ function ChatApp(props) {
   const [recipientsToDisplay, setRecipientsToDisplay] = useState("");
 
   // recording vars
-  //var [audioVar, setAudioVar] = useState("");
+  var [audioVar, setAudioVar] = useState("");
  // var [recorder, setRecorder] = useState("");
   //var [recording, setRecording] = useState(false);
 
-  var audioVar;
+  //var audioVar;
   var recorder;
   var recording;
   // end recording vars
+
+  useEffect(() => {
+    console.log(audioVar);
+  }, [audioVar]);
 
   useEffect(() => {
     console.log(textsToDisplay);
@@ -66,7 +70,6 @@ function ChatApp(props) {
   );
 
   function ttest(i) {
-    console.log("aud");
     textsToDisplay[i].message.play();
   }
 
@@ -99,7 +102,6 @@ function ChatApp(props) {
     });
 
   function recAudio() {
-    console.log(recording);
     (async () => {
     if (recording != true) {
       document.getElementById("audioB").innerHTML = 'stop';
@@ -107,27 +109,28 @@ function ChatApp(props) {
       recording = true;
       recorder = await recordAudio();
       recorder.start();
-      
-      setNewText("Recording...")
-      console.log(recording);
+      //setNewText("Recording...")
     }
     else {
       document.getElementById("audioB").innerHTML = 'rec';
       document.getElementById("audioB").className = "btn btn-success";
       recording = false;
-      audioVar = await recorder.stop();
+      var aud = await recorder.stop()
+      //audioVar = await recorder.stop();
+      setAudioVar(aud);
+      console.log(audioVar);
       var temp = {
-        name: props.loginUser,
+        name: props.loginUser.loginUser,
         type: "audio",
-        message: audioVar,
+        message: aud,
       };
       var tempChats = props.chats;
       var index = props.chats.findIndex(
         (chat) =>
-          (chat.recipients[0] == props.loginUser && //props.loginUser &&
+          (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
           chat.recipients[1] == otherUser) ||
           (chat.recipients[0] == otherUser && 
-          chat.recipients[1] == props.loginUser)
+          chat.recipients[1] == props.loginUser.loginUser)
       );
       var tempRecipients = props.chats[index].recipients;
       var tempText = props.chats[index].texts;
@@ -135,10 +138,10 @@ function ChatApp(props) {
       tempChats[index] = { recipients: tempRecipients, texts: tempText };
       props.setChats(tempChats);
       getTextsToDisplay();
-      setNewText("")
+      setAudioVar("");
+      //setNewText("")
       //audioVar.play();
     }
-    console.log(recording);
     })();
   }
 
@@ -147,7 +150,7 @@ function ChatApp(props) {
   function pText() {
     var indents = [];
     var b;
-    for (var i = 0; i < textsToDisplay.length; i++) {
+    for (let i = 0; i < textsToDisplay.length; i++) {
       if (textsToDisplay[i].type == "text") {
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
           indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
