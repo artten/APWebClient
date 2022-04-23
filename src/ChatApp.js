@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useRef, useState, useEffect } from "react";
 
 function ChatApp(props) {
+  
   const [newText, setNewText] = useState("");
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
@@ -90,11 +91,13 @@ function ChatApp(props) {
     }
     return indents;
   }
+
+  // vars for adding chat
   var [newContact, setNewContact] = useState("");
   var [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
+  
 
   function addChatTolist() {
     var temp = {
@@ -152,6 +155,8 @@ function ChatApp(props) {
       ].texts
     );
   }
+
+
 
   return (
     <div className="chatApp">
