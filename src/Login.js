@@ -60,7 +60,6 @@ function Login(props) {
     while (i < temp.length) {
       if (temp[i].userName === logUserName) {
         if (temp[i].password === LogPassword) {
-          props.setLoginUser({ loginUser: logUserName });
           navigate("/chat");
           return;
         } else {
