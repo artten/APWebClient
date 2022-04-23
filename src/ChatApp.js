@@ -176,11 +176,12 @@ function ChatApp(props) {
     }
     return indents;
   }
+
+  // vars for adding chat
   var [newContact, setNewContact] = useState("");
   var [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //document.getElementById("errorText").innerHTML = props.loginUser.loginUser;
 
   function addChatTolist() {
     var temp = {
