@@ -283,8 +283,6 @@ function ChatApp(props) {
   }
 
   function nicknameToUserName(nick) {
-    console.log(nick);
-    console.log(props.users);
     if (nick != "") {
       return props.users[props.users.findIndex((user) => user.nikename == nick)]
         .userName;
@@ -348,24 +346,52 @@ function ChatApp(props) {
 
   function printRecipients() {
     var indents = [];
+    console.log(recipientsToDisplay);
     for (let i = 0; i < recipientsToDisplay.length; i++) {
+      if (recipientsToDisplay[i] != ""){
       if (otherUser == recipientsToDisplay[i]) {
         indents.push(
-          <div>
-          <p onClick={() => testt(i)} id="current_recipients">
-            {userNameToNickname(recipientsToDisplay[i])}
-          </p>
+          <div className="leftRecipients_chosen">
+            <div className="userimg">
+            <img
+            src={
+              props.users[
+                props.users.findIndex(
+                  (user) => user.userName == recipientsToDisplay[i]
+                )
+              ].image
+            }
+            class="cover"
+          ></img>
+            </div>
+            <div className="nickname" id="nikname">
+              <h5 onClick={() => testt(i)}>{userNameToNickname(recipientsToDisplay[i])}</h5>
+            </div>
           </div>
         );
       } else {
+        console.log(recipientsToDisplay[i]);
         indents.push(
-          <div>
-          <p onClick={() => testt(i)} id="recipients">
-            {userNameToNickname(recipientsToDisplay[i])}
-          </p>
+          <div className="leftRecipients">
+            <div className="userimg">
+            <img
+            src={
+              props.users[
+                props.users.findIndex(
+                  (user) => user.userName == recipientsToDisplay[i]
+                )
+              ].image
+            }
+            class="cover"
+          ></img>
+            </div>
+            <div className="nickname" id="nikname">
+              <h5 onClick={() => testt(i)} id="recipients">{userNameToNickname(recipientsToDisplay[i])}</h5>
+            </div>
           </div>
         );
       }
+    }
     }
     return indents;
   }
