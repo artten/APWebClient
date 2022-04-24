@@ -14,21 +14,21 @@ function App() {
       password: "art1",
       nikename: "art",
       image: "Images/logo.png",
-      recipientsList: ["ssaa"],
+      recipientsList: ["sasr"],
     },
     {
       userName: "sasr",
       password: "sar123",
       nikename: "ssaa",
       image: "Images/logo.png",
-      recipientsList: ["art", "anoli"],
+      recipientsList: ["artiom", "ilona"],
     },
     {
       userName: "ilona",
       password: "ilo19",
       nikename: "anoli",
       image: "Images/logo.png",
-      recipientsList: ["saaa"],
+      recipientsList: ["sasr"],
     },
     {
       userName: "Bogos Binted",
@@ -42,7 +42,7 @@ function App() {
       password: "eee",
       nikename: "monsoon",
       image: "Images/logo.png",
-      recipientsList: ["ssaa", "art", "anoli", "Bogos"],
+      recipientsList: ["sasr", "artiom", "ilona", "Bogos Binted"],
     },
   ]);
 
