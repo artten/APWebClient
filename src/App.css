@@ -98,13 +98,20 @@
   font-weight: 600;
   color: black;
 }
-.container .rightSide
+.container .rightSide1
 {
   flex: 70%;
   display: flex;
-  background-color: beige;
-
+  background-color: white;
+  background-image: url(background.jpg);
 }
+.container .rightSide2
+{
+  flex: 70%;
+  display: none;
+  background-color: beige;
+}
+
 #login_user_text {
   background-color: rgb(189, 240, 184);
   align-self: flex-end;
