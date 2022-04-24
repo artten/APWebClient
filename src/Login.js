@@ -130,7 +130,7 @@ function Login(props) {
         play
       </button>
       <div>
-        <img align="left" src="images\logy.png" />
+        <img align="left" src="Images\logy.png" />
       </div>
       <div class="butwhydou" id="butwhydou" style={{ color: "red" }}></div>
       <div class="errorText" id="errorText" style={{ color: "red" }}></div>

@@ -216,7 +216,7 @@ function ChatApp(props) {
             props.users.findIndex(
               (user) => user.userName == props.loginUser.loginUser
             )
-          ].recipientsList.includes(newContact);
+          ].recipientsList.includes(userNameToNickname(newContact));
         if (!temp) {
           addChatTolist();
           return;
@@ -283,6 +283,8 @@ function ChatApp(props) {
   }
 
   function nicknameToUserName(nick) {
+    console.log(nick);
+    console.log(props.users);
     if (nick != "") {
       return props.users[props.users.findIndex((user) => user.nikename == nick)]
         .userName;
@@ -346,15 +348,19 @@ function ChatApp(props) {
     for (let i = 0; i < recipientsToDisplay.length; i++) {
       if (otherUser == nicknameToUserName(recipientsToDisplay[i])) {
         indents.push(
+          <div>
           <p onClick={() => testt(i)} id="current_recipients">
             {recipientsToDisplay[i]}
           </p>
+          </div>
         );
       } else {
         indents.push(
+          <div>
           <p onClick={() => testt(i)} id="recipients">
             {recipientsToDisplay[i]}
           </p>
+          </div>
         );
       }
     }
