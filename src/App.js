@@ -12,43 +12,43 @@ function App() {
     {
       userName: "artiom",
       password: "art1",
-      nikename: "art ",
+      nikename: "art",
       image: "Images/logo.png",
-      recipientsList: ["sasr"],
+      recipientsList: ["ssaa"],
     },
     {
       userName: "sasr",
       password: "sar123",
-      nikename: "ssaa ",
+      nikename: "ssaa",
       image: "Images/logo.png",
-      recipientsList: ["art1", "ilona"],
+      recipientsList: ["art", "anoli"],
     },
     {
       userName: "ilona",
       password: "ilo19",
-      nikename: "anoli ",
+      nikename: "anoli",
       image: "Images/logo.png",
-      recipientsList: ["sasr"],
+      recipientsList: ["saaa"],
     },
     {
       userName: "Bogos Binted",
       password: "sss",
       nikename: "Bogos",
       image: "Images/logo.png",
-      recipientsList: ["Bogos Binted"],
+      recipientsList: [],
     },
     {
       userName: "monsoon",
       password: "eee",
       nikename: "monsoon",
       image: "Images/logo.png",
-      recipientsList: ["sasr", "art1", "ilona", "Bogos Binted"],
+      recipientsList: ["ssaa", "art", "anoli", "Bogos"],
     },
   ]);
 
   var [chats, setChats] = useState([
     {
-      recipients: ["artiom", "sasr"],
+      recipients: ["sasr", "artiom"],
       texts: [
         { name: "artiom", type: "text", message: "hi" },
         {
@@ -62,8 +62,8 @@ function App() {
     {
       recipients: ["ilona", "sasr"],
       texts: [
-        { name: "artiom", type: "image", message: "./images/logo.png" },
-        { name: "artiom", type: "text", message: "hi" },
+        { name: "ilona", type: "image", message: "./images/logo.png" },
+        { name: "ilona", type: "text", message: "hi" },
       ],
     },
     {
@@ -81,7 +81,7 @@ function App() {
       ],
     },
     {
-      recipients: ["monsoon", "art1"],
+      recipients: ["monsoon", "artiom"],
       texts: [
         { name: "monsoon", type: "text", message: "AMUGUS" },
         { name: "artiom", type: "text", message: "logo" },
@@ -111,7 +111,17 @@ function App() {
         <Router>
           <Header></Header>
           <Routes>
-            <Route exact path="/" element={<Login users={users} loginUser={loginUser} setLoginUser={setLoginUser} />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <Login
+                  users={users}
+                  loginUser={loginUser}
+                  setLoginUser={setLoginUser}
+                />
+              }
+            />
             <Route
               exact
               path="/chat"
