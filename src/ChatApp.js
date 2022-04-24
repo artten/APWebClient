@@ -340,6 +340,10 @@ function ChatApp(props) {
   }
 
   function testt(i) {
+    var rightSide1 = document.getElementById("div1");
+    rightSide1.style.display = "none";
+    var rightSide2 = document.getElementById("div2");
+    rightSide2.style.display = "flex";
     setOtherUser(recipientsToDisplay[i]);
     getTextsToDisplay(recipientsToDisplay[i]);
   }
@@ -449,7 +453,9 @@ function ChatApp(props) {
           </div>
           <div>{printRecipients()}</div>
         </div>
-        <div class="rightSide">
+        <div class="rightSide1" id="div1">
+        </div>
+        <div class="rightSide2" id="div2">
           <div id="input_text">
             {pText()}
             <div class="input-group mb-3">
