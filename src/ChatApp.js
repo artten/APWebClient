@@ -216,7 +216,7 @@ function ChatApp(props) {
             props.users.findIndex(
               (user) => user.userName == props.loginUser.loginUser
             )
-          ].recipientsList.includes(userNameToNickname(newContact));
+          ].recipientsList.includes(newContact);
         if (!temp) {
           addChatTolist();
           return;
