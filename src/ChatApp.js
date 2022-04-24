@@ -290,9 +290,12 @@ function ChatApp(props) {
         .userName;
     }
   }
-  function userNameToNickname(user) {
-    return props.users[props.users.findIndex((user) => user.userName == user)]
-      .nickname;
+  function userNameToNickname(username) {
+    if (username != "") {
+      return props.users[
+        props.users.findIndex((user) => user.userName == username)
+      ].nikename;
+    }
   }
 
   function getTextsToDisplay() {
@@ -339,18 +342,18 @@ function ChatApp(props) {
   }
 
   function testt(i) {
-    setOtherUser(nicknameToUserName(recipientsToDisplay[i]));
-    getTextsToDisplay(nicknameToUserName(recipientsToDisplay[i]));
+    setOtherUser(recipientsToDisplay[i]);
+    getTextsToDisplay(recipientsToDisplay[i]);
   }
 
   function printRecipients() {
     var indents = [];
     for (let i = 0; i < recipientsToDisplay.length; i++) {
-      if (otherUser == nicknameToUserName(recipientsToDisplay[i])) {
+      if (otherUser == recipientsToDisplay[i]) {
         indents.push(
           <div>
           <p onClick={() => testt(i)} id="current_recipients">
-            {recipientsToDisplay[i]}
+            {userNameToNickname(recipientsToDisplay[i])}
           </p>
           </div>
         );
@@ -358,7 +361,7 @@ function ChatApp(props) {
         indents.push(
           <div>
           <p onClick={() => testt(i)} id="recipients">
-            {recipientsToDisplay[i]}
+            {userNameToNickname(recipientsToDisplay[i])}
           </p>
           </div>
         );
