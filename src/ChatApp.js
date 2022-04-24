@@ -10,6 +10,7 @@ function ChatApp(props) {
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
   const [recipientsToDisplay, setRecipientsToDisplay] = useState("");
+  var [image, setImage] = useState("");
 
   // recording vars
   var [audioVar, setAudioVar] = useState("");
@@ -147,6 +148,23 @@ function ChatApp(props) {
           indents.push(<p id="login_user_text">{textsToDisplay[i].message}</p>);
         } else
           indents.push(<p id="other_user_text">{textsToDisplay[i].message}</p>);
+      }
+      if (textsToDisplay[i].type == "image") {
+        if (textsToDisplay[i].name == props.loginUser.loginUser) {
+          indents.push(<div><div id="login_img_chat">
+          <img id="chat_img"
+          src={textsToDisplay[i].message}
+          class="cover"
+        ></img>
+          </div><br/></div>);
+          
+        } else
+          indents.push(<div id="other_img_chat">
+          <img id="chat_img"
+          src={textsToDisplay[i].message}
+          class="cover"
+        ></img>
+          </div>);
       }
       if (textsToDisplay[i].type == "audio") {
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
@@ -396,6 +414,28 @@ function ChatApp(props) {
     return indents;
   }
 
+  function addImage(image) {
+    var temp = {
+      name: props.loginUser.loginUser,
+      type: "image",
+      message: image,
+    };
+    var tempChats = props.chats;
+    var index = props.chats.findIndex(
+      (chat) =>
+        (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
+          chat.recipients[1] == otherUser) ||
+        (chat.recipients[0] == otherUser &&
+          chat.recipients[1] == props.loginUser.loginUser)
+    );
+    var tempRecipients = props.chats[index].recipients;
+    var tempText = props.chats[index].texts;
+    tempText.push(temp);
+    tempChats[index] = { recipients: tempRecipients, texts: tempText };
+    props.setChats(tempChats);
+    getTextsToDisplay();
+  }
+
   return (
     <div className="chatApp">
       <Modal show={show} onHide={handleClose}>
@@ -470,6 +510,17 @@ function ChatApp(props) {
                 >
                   rec
                 </button>
+              </div>
+              <div class="input-group-append">
+              
+                <label class="btn btn-secondary">
+                  <i class="fa fa-image"></i>
+                    image
+                  <input type="file" style={{display: "none"}} 
+                    onChange={(e) => {
+                      addImage(URL.createObjectURL(e.target.files[0]));
+                      }} name="image"/>
+                </label>
               </div>
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button" onClick={addText}>

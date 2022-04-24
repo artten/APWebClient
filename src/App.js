@@ -62,7 +62,7 @@ function App() {
     {
       recipients: ["ilona", "sasr"],
       texts: [
-        { name: "ilona", type: "image", message: "./images/logo.png" },
+        { name: "ilona", type: "image", message: "Images/logo.png" },
         { name: "ilona", type: "text", message: "hi" },
       ],
     },
