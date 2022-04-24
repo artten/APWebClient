@@ -159,12 +159,12 @@ function ChatApp(props) {
           </div><br/></div>);
           
         } else
-          indents.push(<div id="other_img_chat">
+          indents.push(<div><div id="other_img_chat">
           <img id="chat_img"
           src={textsToDisplay[i].message}
           class="cover"
         ></img>
-          </div>);
+          </div><br/></div>);
       }
       if (textsToDisplay[i].type == "audio") {
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
@@ -438,6 +438,7 @@ function ChatApp(props) {
     tempChats[index] = { recipients: tempRecipients, texts: tempText };
     props.setChats(tempChats);
     getTextsToDisplay();
+    setImage(image);
   }
 
   return (
