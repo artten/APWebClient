@@ -7,7 +7,6 @@ import React, { useRef, useState, useEffect } from "react";
 
 function ChatApp(props) {
   const [newText, setNewText] = useState("");
-  const [lastTextTime, setLastTextTime] = useState("");
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
   const [recipientsToDisplay, setRecipientsToDisplay] = useState("");
@@ -274,6 +273,8 @@ function ChatApp(props) {
   }
 
   function addText() {
+    var currentdate = new Date(); 
+    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
     if (newText != "") {
       var tempRecipients = [];
       var tempText = [];
@@ -281,6 +282,7 @@ function ChatApp(props) {
         name: props.loginUser.loginUser,
         type: "text",
         message: newText,
+        time: timenow
       };
       var tempChats = props.chats;
       var index = props.chats.findIndex(
@@ -395,14 +397,25 @@ function ChatApp(props) {
             chat.recipients[1] == props.loginUser.loginUser)
       )
     ].texts;
-    //setLastTextTime(temp[temp.length - 1].time);
-    //console.log(lastTextTime);
     if (temp[temp.length - 1].type == "text"){
       return temp[temp.length - 1].message;
     }
     else{
       return temp[temp.length - 1].type;
     }
+  }
+
+  function printLastMsgTime(otherUser){
+    var temp = props.chats[
+      props.chats.findIndex(
+        (chat) =>
+          (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
+            chat.recipients[1] == otherUser) ||
+          (chat.recipients[0] == otherUser &&
+            chat.recipients[1] == props.loginUser.loginUser)
+      )
+    ].texts;
+    return temp[temp.length - 1].time;
   }
 
   function printRecipients() {
@@ -430,7 +443,7 @@ function ChatApp(props) {
               <h6>{printLastMsg(otherUser)}</h6>
             </div>
             <div className="lastMessage" id="lmsg">
-              <h6></h6>
+              <h6>{printLastMsgTime(otherUser)}</h6>
             </div>
           </div>
         );
@@ -455,7 +468,7 @@ function ChatApp(props) {
               <h6>{printLastMsg(recipientsToDisplay[i])}</h6>
             </div>
             <div className="lastMessage" id="lmsg">
-              <h6></h6>
+              <h6>{printLastMsgTime(recipientsToDisplay[i])}</h6>
             </div>
           </div>
         );
