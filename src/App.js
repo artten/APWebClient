@@ -13,7 +13,7 @@ function App() {
       userName: "artiom",
       password: "art1",
       nikename: "art",
-      image: "Images/image1.jpg",
+      image: "images/logo.png",
       recipientsList: ["sasr"],
     },
     {
