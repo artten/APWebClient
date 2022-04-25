@@ -96,6 +96,8 @@ function ChatApp(props) {
     });
 
   function recAudio() {
+    var currentdate = new Date(); 
+    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
     (async () => {
       if (recording != true) {
         document.getElementById("audioB").innerHTML = "stop";
@@ -115,6 +117,7 @@ function ChatApp(props) {
           name: props.loginUser.loginUser,
           type: "audio",
           message: aud,
+          time: timenow
         };
         var tempChats = props.chats;
         var index = props.chats.findIndex(
@@ -479,10 +482,13 @@ function ChatApp(props) {
   }
 
   function addImage(image) {
+    var currentdate = new Date(); 
+    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
     var temp = {
       name: props.loginUser.loginUser,
       type: "image",
       message: image,
+      time: timenow
     };
     var tempChats = props.chats;
     var index = props.chats.findIndex(
@@ -503,10 +509,13 @@ function ChatApp(props) {
   }
 
   function addVideo(video) {
+    var currentdate = new Date(); 
+    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
     var temp = {
       name: props.loginUser.loginUser,
       type: "video",
       message: video,
+      time: timenow
     };
     var tempChats = props.chats;
     var index = props.chats.findIndex(
