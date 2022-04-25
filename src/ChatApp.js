@@ -7,6 +7,7 @@ import React, { useRef, useState, useEffect } from "react";
 
 function ChatApp(props) {
   const [newText, setNewText] = useState("");
+  const [lastTextTime, setLastTextTime] = useState("");
   const [otherUser, setOtherUser] = useState("");
   const [textsToDisplay, setTextsToDisplay] = useState("");
   const [recipientsToDisplay, setRecipientsToDisplay] = useState("");
@@ -304,6 +305,7 @@ function ChatApp(props) {
       props.setChats(tempChats);
       getTextsToDisplay();
       setNewText("");
+      printRecipients();
     }
   }
 
@@ -383,9 +385,29 @@ function ChatApp(props) {
     getTextsToDisplay(recipientsToDisplay[i]);
   }
 
+  function printLastMsg(otherUser){
+    var temp = props.chats[
+      props.chats.findIndex(
+        (chat) =>
+          (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
+            chat.recipients[1] == otherUser) ||
+          (chat.recipients[0] == otherUser &&
+            chat.recipients[1] == props.loginUser.loginUser)
+      )
+    ].texts;
+    //setLastTextTime(temp[temp.length - 1].time);
+    //console.log(lastTextTime);
+    if (temp[temp.length - 1].type == "text"){
+      return temp[temp.length - 1].message;
+    }
+    else{
+      return temp[temp.length - 1].type;
+    }
+  }
+
   function printRecipients() {
     var indents = [];
-    console.log(recipientsToDisplay);
+    //console.log(recipientsToDisplay);
     for (let i = 0; i < recipientsToDisplay.length; i++) {
       if (recipientsToDisplay[i] != ""){
       if (otherUser == recipientsToDisplay[i]) {
@@ -405,11 +427,15 @@ function ChatApp(props) {
             </div>
             <div className="nickname" id="nikname">
               <h5 onClick={() => testt(i)}>{userNameToNickname(recipientsToDisplay[i])}</h5>
+              <h6>{printLastMsg(otherUser)}</h6>
+            </div>
+            <div className="lastMessage" id="lmsg">
+              <h6></h6>
             </div>
           </div>
         );
       } else {
-        console.log(recipientsToDisplay[i]);
+        //console.log(recipientsToDisplay[i]);
         indents.push(
           <div className="leftRecipients">
             <div className="userimg">
@@ -426,6 +452,10 @@ function ChatApp(props) {
             </div>
             <div className="nickname" id="nikname">
               <h5 onClick={() => testt(i)} id="recipients">{userNameToNickname(recipientsToDisplay[i])}</h5>
+              <h6>{printLastMsg(recipientsToDisplay[i])}</h6>
+            </div>
+            <div className="lastMessage" id="lmsg">
+              <h6></h6>
             </div>
           </div>
         );

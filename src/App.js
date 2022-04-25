@@ -50,49 +50,45 @@ function App() {
     {
       recipients: ["sasr", "artiom"],
       texts: [
-        { name: "artiom", type: "text", message: "hi" },
-        {
-          name: "sasr",
-          type: "text",
-          message: "lol",
-        },
-        { name: "artiom", type: "text", message: "hi2" },
+        { name: "artiom", type: "text", message: "hi", time: "16:45" },
+        { name: "sasr", type: "text", message: "lol", time: "10:45"},
+        { name: "artiom", type: "text", message: "hi2", time: "06:35" },
       ],
     },
     {
       recipients: ["ilona", "sasr"],
       texts: [
-        { name: "ilona", type: "image", message: "Images/logo.png" },
-        { name: "ilona", type: "text", message: "hi" },
+        { name: "ilona", type: "image", message: "Images/logo.png", time:"07:38" },
+        { name: "ilona", type: "text", message: "hi", time:"12:00" },
       ],
     },
     {
       recipients: ["monsoon", "sasr"],
       texts: [
-        { name: "monsoon", type: "text", message: "AMUGUS" },
-        { name: "sasr", type: "text", message: "logo" },
+        { name: "monsoon", type: "text", message: "AMUGUS", time:"14:29" },
+        { name: "sasr", type: "text", message: "logo", time:"03:59" },
       ],
     },
     {
       recipients: ["monsoon", "ilona"],
       texts: [
-        { name: "monsoon", type: "text", message: "AMUGUS" },
-        { name: "ilona", type: "text", message: "logo" },
+        { name: "monsoon", type: "text", message: "AMUGUS", time:"04:20" },
+        { name: "ilona", type: "text", message: "logo", time:"07:30" },
       ],
     },
     {
       recipients: ["monsoon", "artiom"],
       texts: [
-        { name: "monsoon", type: "text", message: "AMUGUS" },
-        { name: "artiom", type: "text", message: "logo" },
+        { name: "monsoon", type: "text", message: "AMUGUS", time: "09:17" },
+        { name: "artiom", type: "text", message: "logo", time: "11:47" },
       ],
     },
     {
       recipients: ["monsoon", "Bogos Binted"],
       texts: [
-        { name: "monsoon", type: "text", message: "And it will come" },
-        { name: "monsoon", type: "text", message: "like a flood of pain" },
-        { name: "monsoon", type: "text", message: "pouring down on me" },
+        { name: "monsoon", type: "text", message: "And it will come", time: "08:00" },
+        { name: "monsoon", type: "text", message: "like a flood of pain", time: "09:00" },
+        { name: "monsoon", type: "text", message: "pouring down on me", time: "10:00" },
       ],
     },
   ]);
