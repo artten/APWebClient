@@ -143,46 +143,4 @@
     border: none;
     overflow: hidden;
 }
-.chatlist
-{
-  position: relative;
-  height: calc(100% - 120px);
-  overflow-y: auto;
-}
-.chatlist .block
-{
-  position: relative;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom:  1px solid rgba(0,0,0,0.06);
-  cursor: pointer;
-}
-.chatlist .block .imgbox
-{
-  position: relative;
-  width: 48px;
-  height: 48px;
-  overflow: hidden;
-  border-radius: 50%;
-}
-.chatlist .block .details
-{
-  position: relative;
-  width: 100%;
-}
-.chatlist .block .details .listHead
-{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-.chatlist .block .details .listHead h4
-{
-  font-size: 1.1em;
-  font-weight: 600;
-  color: black;
-}
+
