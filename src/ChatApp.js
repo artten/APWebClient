@@ -456,6 +456,7 @@ function ChatApp(props) {
     props.setChats(tempChats);
     getTextsToDisplay();
     setImage(image);
+    document.getElementById("img_input").value = "";
   }
 
   function addVideo(video) {
@@ -479,6 +480,7 @@ function ChatApp(props) {
     props.setChats(tempChats);
     getTextsToDisplay();
     setImage(video);
+    document.getElementById("video_input").value = "";
   }
 
   return (
@@ -563,7 +565,7 @@ function ChatApp(props) {
                 <label class="btn btn-secondary">
                   <i class="fa fa-image"></i>
                     image
-                  <input type="file" style={{display: "none"}} 
+                  <input id="img_input" type="file" style={{display: "none"}} 
                     onChange={(e) => {
                       addImage(URL.createObjectURL(e.target.files[0]));
                       }} name="image"/>
@@ -574,7 +576,8 @@ function ChatApp(props) {
                 <label class="btn btn-secondary">
                   <i class="fa fa-image"></i>
                     video
-                  <input type="file" style={{display: "none"}} 
+                  <input id="video_input" type="file" style={{display: "none"}} 
+                    
                     onChange={(e) => {
                       addVideo(URL.createObjectURL(e.target.files[0]));
                       }} name="video"/>
