@@ -149,8 +149,28 @@
   padding-top: 25px;
   padding-right: 15px;
   padding-left: 15px;
-  height: 10px;
-  width: 10px;
+  height: 300px;
+  width: 300px;
+}
+#login_video_chat{
+  background-color: rgb(189, 240, 184);
+  align-self: flex-end;
+  border-radius: 30%;
+  padding-top: 25px;
+  padding-right: 15px;
+  padding-left: 15px;
+  height: 300px;
+  width: 400px;
+}
+#other_video_chat{
+  align-self: flex-start;
+  background-color: aliceblue;
+  border-radius: 30%;
+  padding-top: 25px;
+  padding-right: 15px;
+  padding-left: 15px;
+  height: 300px;
+  width: 400px;
 }
 #input_text
 {
