@@ -103,8 +103,7 @@ function ChatApp(props) {
     });
 
   function recAudio() {
-    var currentdate = new Date(); 
-    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
+    var timenow = getTime();
     (async () => {
       if (recording != true) {
         document.getElementById("audioB").innerHTML = "stop";
@@ -124,7 +123,7 @@ function ChatApp(props) {
           name: props.loginUser.loginUser,
           type: "audio",
           message: aud,
-          time: timenow
+          time: timenow,
         };
         var tempChats = props.chats;
         var index = props.chats.findIndex(
@@ -161,39 +160,71 @@ function ChatApp(props) {
       }
       if (textsToDisplay[i].type == "video") {
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
-          indents.push(<div id="login_video_chat"><div>
-          <video width="320" height="240" controls
-             src={textsToDisplay[i].message} type="video/mp4">
-              Your browser does not support the video tag.
-          </video>
-          </div><br/></div>);
-          
+          indents.push(
+            <div id="login_video_chat">
+              <div>
+                <video
+                  width="320"
+                  height="240"
+                  controls
+                  src={textsToDisplay[i].message}
+                  type="video/mp4"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <br />
+            </div>
+          );
         } else
-          indents.push(<div id="other_video_chat"><div>
-          <video width="320" height="240" controls
-             src={textsToDisplay[i].message} type="video/mp4">
-              Your browser does not support the video tag.
-          </video>
-          </div><br/></div>);
+          indents.push(
+            <div id="other_video_chat">
+              <div>
+                <video
+                  width="320"
+                  height="240"
+                  controls
+                  src={textsToDisplay[i].message}
+                  type="video/mp4"
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <br />
+            </div>
+          );
       }
       if (textsToDisplay[i].type == "image") {
+        console.log(textsToDisplay[i].message);
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
-          indents.push(<div id="login_img_chat"><div>
-          <img id="chat_img"
-          src={textsToDisplay[i].message}
-          class="cover"
-        ></img>
-          </div><br/></div>);
-          
+          indents.push(
+            <div id="login_img_chat">
+              <div>
+                <img
+                  id="chat_img"
+                  src={textsToDisplay[i].message}
+                  class="cover"
+                ></img>
+              </div>
+              <br />
+            </div>
+          );
         } else
-          indents.push(<div id="other_img_chat"><div>
-          <img id="chat_img"
-          src={textsToDisplay[i].message}
-          class="cover"
-        ></img>
-          </div><br/></div>);
+          indents.push(
+            <div id="other_img_chat">
+              <div>
+                <img
+                  id="chat_img"
+                  src={textsToDisplay[i].message}
+                  class="cover"
+                ></img>
+              </div>
+              <br />
+            </div>
+          );
       }
       if (textsToDisplay[i].type == "audio") {
+        console.log(textsToDisplay[i].message);
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
           b = document.createElement("button");
           indents.push(
@@ -205,7 +236,7 @@ function ChatApp(props) {
                   ttest(i);
                 }}
               >
-                play3
+                play
               </Button>
               {"audio message"}
             </p>
@@ -219,7 +250,7 @@ function ChatApp(props) {
                   ttest(i);
                 }}
               >
-                play3
+                play
               </Button>
               {"audio message"}
             </p>
@@ -282,9 +313,16 @@ function ChatApp(props) {
     error.style.color = "red";
   }
 
-  function addText() {
+  function getTime() {
     var currentdate = new Date(); 
-    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
+    if (currentdate.getMinutes() < 10) {
+      return currentdate.getHours() + ":0" + currentdate.getMinutes();
+    }
+    return currentdate.getHours() + ":" + currentdate.getMinutes();
+  }
+
+  function addText() {
+    var timenow = getTime();
     if (newText != "") {
       var tempRecipients = [];
       var tempText = [];
@@ -292,7 +330,7 @@ function ChatApp(props) {
         name: props.loginUser.loginUser,
         type: "text",
         message: newText,
-        time: timenow
+        time: timenow,
       };
       var tempChats = props.chats;
       var index = props.chats.findIndex(
@@ -397,34 +435,35 @@ function ChatApp(props) {
     getTextsToDisplay(recipientsToDisplay[i]);
   }
 
-  function printLastMsg(otherUser){
-    var temp = props.chats[
-      props.chats.findIndex(
-        (chat) =>
-          (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
-            chat.recipients[1] == otherUser) ||
-          (chat.recipients[0] == otherUser &&
-            chat.recipients[1] == props.loginUser.loginUser)
-      )
-    ].texts;
-    if (temp[temp.length - 1].type == "text"){
+  function printLastMsg(otherUser) {
+    var temp =
+      props.chats[
+        props.chats.findIndex(
+          (chat) =>
+            (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
+              chat.recipients[1] == otherUser) ||
+            (chat.recipients[0] == otherUser &&
+              chat.recipients[1] == props.loginUser.loginUser)
+        )
+      ].texts;
+    if (temp[temp.length - 1].type == "text") {
       return temp[temp.length - 1].message;
-    }
-    else{
+    } else {
       return temp[temp.length - 1].type;
     }
   }
 
-  function printLastMsgTime(otherUser){
-    var temp = props.chats[
-      props.chats.findIndex(
-        (chat) =>
-          (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
-            chat.recipients[1] == otherUser) ||
-          (chat.recipients[0] == otherUser &&
-            chat.recipients[1] == props.loginUser.loginUser)
-      )
-    ].texts;
+  function printLastMsgTime(otherUser) {
+    var temp =
+      props.chats[
+        props.chats.findIndex(
+          (chat) =>
+            (chat.recipients[0] == props.loginUser.loginUser && //props.loginUser &&
+              chat.recipients[1] == otherUser) ||
+            (chat.recipients[0] == otherUser &&
+              chat.recipients[1] == props.loginUser.loginUser)
+        )
+      ].texts;
     return temp[temp.length - 1].time;
   }
 
@@ -432,70 +471,73 @@ function ChatApp(props) {
     var indents = [];
     //console.log(recipientsToDisplay);
     for (let i = 0; i < recipientsToDisplay.length; i++) {
-      if (recipientsToDisplay[i] != ""){
-      if (otherUser == recipientsToDisplay[i]) {
-        indents.push(
-          <div className="leftRecipients_chosen">
-            <div className="userimg">
-            <img
-            src={
-              props.users[
-                props.users.findIndex(
-                  (user) => user.userName == recipientsToDisplay[i]
-                )
-              ].image
-            }
-            class="cover"
-          ></img>
+      if (recipientsToDisplay[i] != "") {
+        if (otherUser == recipientsToDisplay[i]) {
+          indents.push(
+            <div className="leftRecipients_chosen">
+              <div className="userimg">
+                <img
+                  src={
+                    props.users[
+                      props.users.findIndex(
+                        (user) => user.userName == recipientsToDisplay[i]
+                      )
+                    ].image
+                  }
+                  class="cover"
+                ></img>
+              </div>
+              <div className="nickname" id="nikname">
+                <h5 onClick={() => testt(i)}>
+                  {userNameToNickname(recipientsToDisplay[i])}
+                </h5>
+                <h6>{printLastMsg(otherUser)}</h6>
+              </div>
+              <div className="lastMessage" id="lmsg">
+                <h6>{printLastMsgTime(otherUser)}</h6>
+              </div>
             </div>
-            <div className="nickname" id="nikname">
-              <h5 onClick={() => testt(i)}>{userNameToNickname(recipientsToDisplay[i])}</h5>
-              <h6>{printLastMsg(otherUser)}</h6>
+          );
+        } else {
+          //console.log(recipientsToDisplay[i]);
+          indents.push(
+            <div className="leftRecipients" onClick={() => testt(i)}>
+              <div className="userimg">
+                <img
+                  src={
+                    props.users[
+                      props.users.findIndex(
+                        (user) => user.userName == recipientsToDisplay[i]
+                      )
+                    ].image
+                  }
+                  class="cover"
+                ></img>
+              </div>
+              <div className="nickname" id="nikname">
+                <h5 onClick={() => testt(i)} id="recipients">
+                  {userNameToNickname(recipientsToDisplay[i])}
+                </h5>
+                <h6>{printLastMsg(recipientsToDisplay[i])}</h6>
+              </div>
+              <div className="lastMessage" id="lmsg">
+                <h6>{printLastMsgTime(recipientsToDisplay[i])}</h6>
+              </div>
             </div>
-            <div className="lastMessage" id="lmsg">
-              <h6>{printLastMsgTime(otherUser)}</h6>
-            </div>
-          </div>
-        );
-      } else {
-        //console.log(recipientsToDisplay[i]);
-        indents.push(
-          <div className="leftRecipients">
-            <div className="userimg">
-            <img
-            src={
-              props.users[
-                props.users.findIndex(
-                  (user) => user.userName == recipientsToDisplay[i]
-                )
-              ].image
-            }
-            class="cover"
-          ></img>
-            </div>
-            <div className="nickname" id="nikname">
-              <h5 onClick={() => testt(i)} id="recipients">{userNameToNickname(recipientsToDisplay[i])}</h5>
-              <h6>{printLastMsg(recipientsToDisplay[i])}</h6>
-            </div>
-            <div className="lastMessage" id="lmsg">
-              <h6>{printLastMsgTime(recipientsToDisplay[i])}</h6>
-            </div>
-          </div>
-        );
+          );
+        }
       }
-    }
     }
     return indents;
   }
 
   function addImage(image) {
-    var currentdate = new Date(); 
-    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
+    var timenow = getTime();
     var temp = {
       name: props.loginUser.loginUser,
       type: "image",
       message: image,
-      time: timenow
+      time: timenow,
     };
     var tempChats = props.chats;
     var index = props.chats.findIndex(
@@ -516,13 +558,12 @@ function ChatApp(props) {
   }
 
   function addVideo(video) {
-    var currentdate = new Date(); 
-    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
+    var timenow = getTime();
     var temp = {
       name: props.loginUser.loginUser,
       type: "video",
       message: video,
-      time: timenow
+      time: timenow,
     };
     var tempChats = props.chats;
     var index = props.chats.findIndex(
@@ -595,8 +636,7 @@ function ChatApp(props) {
           </div>
           <div>{printRecipients()}</div>
         </div>
-        <div class="rightSide1" id="div1">
-        </div>
+        <div class="rightSide1" id="div1"></div>
         <div class="rightSide2" id="div2">
           <div id="input_text">
             {pText()}
@@ -620,26 +660,33 @@ function ChatApp(props) {
                 </button>
               </div>
               <div class="input-group-append">
-              
                 <label class="btn btn-secondary">
                   <i class="fa fa-image"></i>
-                    image
-                  <input id="img_input" type="file" style={{display: "none"}} 
+                  image
+                  <input
+                    id="img_input"
+                    type="file"
+                    style={{ display: "none" }}
                     onChange={(e) => {
                       addImage(URL.createObjectURL(e.target.files[0]));
-                      }} name="image"/>
+                    }}
+                    name="image"
+                  />
                 </label>
               </div>
               <div class="input-group-append">
-              
                 <label class="btn btn-secondary">
                   <i class="fa fa-image"></i>
-                    video
-                  <input id="video_input" type="file" style={{display: "none"}} 
-                    
+                  video
+                  <input
+                    id="video_input"
+                    type="file"
+                    style={{ display: "none" }}
                     onChange={(e) => {
                       addVideo(URL.createObjectURL(e.target.files[0]));
-                      }} name="video"/>
+                    }}
+                    name="video"
+                  />
                 </label>
               </div>
               <div class="input-group-append">

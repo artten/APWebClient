@@ -52,7 +52,9 @@ function App() {
       texts: [
         { name: "artiom", type: "text", message: "hi", time: "16:45" },
         { name: "sasr", type: "text", message: "lol", time: "10:45"},
-        { name: "artiom", type: "text", message: "hi2", time: "06:35" },
+        { name: "artiom", type: "image", message: "Images/image1.jpg", time: "06:35" },
+        { name: "sasr", type: "video", message: "Images/jazz.mp4", time: "06:36" },
+        { name: "artiom", type: "audio", message: new Audio("Images/yalikejazz.mp3"), time: "06:37" },
       ],
     },
     {
