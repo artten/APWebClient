@@ -63,6 +63,13 @@ function ChatApp(props) {
     [props.users]
   );
 
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
   function ttest(i) {
     textsToDisplay[i].message.play();
   }
@@ -97,7 +104,7 @@ function ChatApp(props) {
 
   function recAudio() {
     var currentdate = new Date(); 
-    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
+    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
     (async () => {
       if (recording != true) {
         document.getElementById("audioB").innerHTML = "stop";
@@ -277,7 +284,7 @@ function ChatApp(props) {
 
   function addText() {
     var currentdate = new Date(); 
-    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
+    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
     if (newText != "") {
       var tempRecipients = [];
       var tempText = [];
@@ -483,7 +490,7 @@ function ChatApp(props) {
 
   function addImage(image) {
     var currentdate = new Date(); 
-    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
+    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
     var temp = {
       name: props.loginUser.loginUser,
       type: "image",
@@ -510,7 +517,7 @@ function ChatApp(props) {
 
   function addVideo(video) {
     var currentdate = new Date(); 
-    var timenow = + currentdate.getHours() + ":" + currentdate.getMinutes();
+    var timenow = + checkTime(currentdate.getHours()) + ":" + checkTime(currentdate.getMinutes());
     var temp = {
       name: props.loginUser.loginUser,
       type: "video",
