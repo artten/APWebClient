@@ -63,6 +63,13 @@ function ChatApp(props) {
     [props.users]
   );
 
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
   function ttest(i) {
     textsToDisplay[i].message.play();
   }
