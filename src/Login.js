@@ -34,49 +34,53 @@ function Login(props) {
 
   return (
     <div style={{ textAlign: "center" }} className="Login" id="Login">
-      <p>Login </p>
-
-      <h1 style={{ color: "pink" }}>
+      <h1>Login</h1>
+      <br/>
+      <h6>
         User name:{" "}
-        <input
-          style={{ backgroundColor: "pink" }}
+      </h6>
+      <input
           type="text"
           id="user_name"
+          className="form-control-sm"
           placeholder="Enter your user name"
           value={logUserName}
           onChange={(e) => setUserName(e.target.value)}
         ></input>
-      </h1>
-
-      <h1 style={{ color: "pink" }}>
+        <br/>
+        <br/>
+      <h6>
         Password:{" "}
-        <input
-          style={{ backgroundColor: "pink" }}
+      </h6>
+      <input
           type="password"
           id="password"
+          className="form-control-sm"
           placeholder="Enter password"
           value={LogPassword}
           onChange={(e) => setPassword(e.target.value)}
         ></input>
-      </h1>
-      <button style={{ color: "pink" }} onClick={checkLoginInfo}>
+        <br/>
+        <br/>
+      <button class="btn btn-primary" onClick={checkLoginInfo}>
         Login
       </button>
-
-      <button
-        style={{ color: "pink" }}
+      <br />
+      <br />
+      <button class="btn btn-secondary"
         onClick={() => {
           navigate("/register");
         }}
       >
         No account? Register now!
       </button>
-
-      <button style={{ color: "pink" }} onClick={loadImg}>
+      <br />
+      <br />
+      <button class="btn btn-secondary" onClick={loadImg}>
         Forgot password? TOO BAD
       </button>
-      <div class="butwhydou" id="butwhydou" style={{ color: "red" }}></div>
-      <div class="errorText" id="errorText" style={{ color: "red" }}></div>
+      <div class="butwhydou" id="butwhydou"></div>
+      <div class="errorText" id="errorText"></div>
     </div>
   );
 }
