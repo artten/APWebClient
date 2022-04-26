@@ -75,9 +75,6 @@ function Login(props) {
       <button style={{ color: "pink" }} onClick={loadImg}>
         Forgot password? TOO BAD
       </button>
-      <div>
-        <img align="left" src="Images\logy.png" />
-      </div>
       <div class="butwhydou" id="butwhydou" style={{ color: "red" }}></div>
       <div class="errorText" id="errorText" style={{ color: "red" }}></div>
     </div>

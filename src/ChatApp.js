@@ -167,6 +167,7 @@ function ChatApp(props) {
           </div><br/></div>);
       }
       if (textsToDisplay[i].type == "image") {
+        console.log(textsToDisplay[i].message);
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
           indents.push(<div id="login_img_chat"><div>
           <img id="chat_img"
@@ -184,6 +185,7 @@ function ChatApp(props) {
           </div><br/></div>);
       }
       if (textsToDisplay[i].type == "audio") {
+        console.log(textsToDisplay[i].message);
         if (textsToDisplay[i].name == props.loginUser.loginUser) {
           b = document.createElement("button");
           indents.push(
@@ -195,7 +197,7 @@ function ChatApp(props) {
                   ttest(i);
                 }}
               >
-                play3
+                play
               </Button>
               {"audio message"}
             </p>
@@ -209,7 +211,7 @@ function ChatApp(props) {
                   ttest(i);
                 }}
               >
-                play3
+                play
               </Button>
               {"audio message"}
             </p>
