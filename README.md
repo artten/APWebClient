@@ -5,6 +5,7 @@ Dependencies:
 1. node.js
 2. npm
 3. react-route-dome
+4. react-bootstrap
 
 How to run the app:
 
