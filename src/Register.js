@@ -7,6 +7,7 @@ function Register(props) {
   const navigate = useNavigate();
   var [userName, setUserName] = useState("");
   var [password, setPassword] = useState("");
+  var [vpassword, setVPassword] = useState("");
   var [nickname, setNickname] = useState("");
   var [image, setImage] = useState("");
   var [modal, setModal] = useState({
@@ -38,22 +39,29 @@ function Register(props) {
     if (image != "") {
       if (userName.length > 2) {
         if (nickname.length > 2) {
-          var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{9,})");
-          if (re.test(password)) {
-            props.setLoginUser({ loginUser: userName });
-            addUser();
-            navigate("/chat");
+          if (vpassword == password) {
+            var re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{9,})");
+            if (re.test(password)) {
+              props.setLoginUser({ loginUser: userName });
+              addUser();
+              navigate("/chat");
+            } else {
+              modal.text = modal.text = setModal({
+                visability: true,
+                text: (
+                  <div>
+                    <p>password shold be at least 9 characters and include:</p>
+                    <p>1) at least one lower letter</p>
+                    <p>2) at least one upper letter</p>
+                    <p>3) at least one number</p>
+                  </div>
+                ),
+              });
+            }
           } else {
-            modal.text = modal.text = setModal({
+            modal.text = setModal({
               visability: true,
-              text: (
-                <div>
-                  <p>password shold be at least 9 characters and include:</p>
-                  <p>1) at least one lower letter</p>
-                  <p>2) at least one upper letter</p>
-                  <p>3) at least one number</p>
-                </div>
-              ),
+              text: "Passwords are not the same",
             });
           }
         } else {
@@ -153,6 +161,17 @@ function Register(props) {
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Validate Password</label>
+          <br />
+          <input
+            type="password"
+            className="form-control-sm"
+            placeholder="Enter password"
+            value={vpassword}
+            onChange={(e) => setVPassword(e.target.value)}
           />
         </div>
         <div className="form-group">
