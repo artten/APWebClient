@@ -2,9 +2,9 @@ Chat App by Artiom, Ilana and Saar
 
 Dependencies:
 
-*node.js
-*npm
-*react-route-dome
+1. node.js
+2. npm
+3. react-route-dome
 
 How to run the app:
 
