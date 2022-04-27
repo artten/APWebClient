@@ -1,5 +1,7 @@
 Chat App by Artiom, Ilana and Saar
-dependencies:
+
+Dependencies:
+
 node.js
 npm
 react-route-dome
