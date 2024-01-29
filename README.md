@@ -1,4 +1,4 @@
-Chat App by Artiom, Ilana and Saar
+Chat App by Artiom, Ilona and Saar
 
 Dependencies:
 
